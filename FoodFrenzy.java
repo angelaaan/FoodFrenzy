@@ -42,23 +42,6 @@ public class FoodFrenzy {
             return 6;
         }
 
-        //old attempts
-        // if(position<=7){
-        //     return 0;
-        // } else if (position==8 || position == 24){
-        //     return 1;
-        // } else if (position==9 || position == 23){
-        //     return 2;
-        // } else if (position == 10 || position == 22 || position == 25){
-        //     return 3;
-        // } else if (position == 11 || position == 21){
-        //     return 4;
-        // } else if (position == 12 || position == 20){
-        //     return 5;
-        // } else {
-        //     return 6;
-        // }
-
     }
 
     public int getColoumn(int position){
@@ -80,23 +63,6 @@ public class FoodFrenzy {
         } else {
             return 6;
         }
-
-        // if ((position>=19 && position <=24) || position == 1){
-        //     return 0;
-        // } else if (position==2 || position == 18){
-        //     return 1;
-        // } else if (position==3 || position == 17){
-        //     return 2;
-        // } else if (position==4 || position == 16 || position == 25){
-        //     return 3;
-        // } else if (position == 5 || position ==15){
-        //     return 4;
-        // } else if (position == 6 || position == 14){
-        //     return 5;
-        // } else {
-        //     return 6;
-        // }
-
 
     }
 
