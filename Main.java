@@ -4,7 +4,8 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        boolean turn = true;
+        Random rand = new Random();
+        int turn = 1;
         int choice = 0;
 
         //introductions and setting up player personas
@@ -28,10 +29,42 @@ public class Main {
 
         //game loop
         while (choice==0){
+            
+            String currentName = "";
+            if (turn%2==0){
+                currentName = red.getName();
+            } else {
+                currentName = blue.getName();
+            }
+
+            System.out.println("Chef "+currentName+"'s turn");
             choice = menuChoice();
+            
+            Chef current;
+            if (turn%2==1){ //if turn number is odd, it is player 1's turn
+                current = red;
+            } else {
+                current = blue;
+            }
 
             //if statement for user choice and decision making  
             if (choice==1){
+
+                //randomize a roll
+                int roll = rand.nextInt(6)+1;
+
+                System.out.println("      ______"
+                +"\n    /O     /\\"
+                +"\n   /   O  /O \\"
+                +"\n((/_____O/    \\"
+                +"\n  \\O    O\\    /"
+                +"\n   \\O    O\\ O/ "
+                +"\n    \\O____O\\/ ))"
+                +"\n  ((\n\nYou rolled a "+roll);
+
+            current.setPosition(current.getPosition()+roll);
+            System.out.println(red.getPosition());;
+            System.out.println(blue.getPosition());
                 
             }
 

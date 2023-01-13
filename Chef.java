@@ -14,6 +14,10 @@ public class Chef {
         return position;
     }
 
+    public String getName(){
+        return name;
+    }
+
     public void setPosition(int num){
         position = num;
     }
