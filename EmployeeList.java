@@ -15,8 +15,8 @@ public class EmployeeList {
         size = 0;
     }
 
-    // Adds the specified data to the rear of the queue.
-    public void enQueue(Employee node) {
+    // Adds the specified data to the rear of the queue. The enQueue method
+    public void hire(Employee node) {
 
         if (isEmpty()) {
             head = node;
@@ -30,17 +30,14 @@ public class EmployeeList {
     /*
      * Removes the data at the front of the queue and 
      * throws an Exception if the queue is empty.
+     * the deQueue method
      */
-    public String deQueue() throws Exception {
+    public void fire() throws Exception {
 
         //throw if thereare 0 items
         if (isEmpty()){
             throw new Exception("queue");
         }
-            
-        //holds onto head data to return later
-        String data = head.set();
-        System.out.println(head.getImage());
 
         //erase the head and decerase size
         head = head.getNext();
@@ -51,47 +48,54 @@ public class EmployeeList {
             rear = null;
         }
 
-        //return data
-        return data;
     }
 
     /*
      * Sorting the list by prices using bubble sort
+     * may just be the worst sort list uve ever seen in ur entire life who knows...
      */
     public void sortList()
     {
         // Sushi current will point to head
         Employee current = head;
-        Employee index = null;
- 
-        String tempName;
-        String tempImage;
-        int tempPrice;
+        Employee index = null; 
  
         if (head == null) {
             return;
         }
         else {
             while (current != null) {
-                // Sushi index will point to node next to current
+                // Employee index will point to node next to current
                 index = current.getNext();
  
+    //             String name;
+    // String companyName;
+    // String job;
+    // int payRate;
+    // int earnings;
+    // boolean hired;
+    
                 while (index != null) {
-                    // If current sushi's price is greater
-                    // than index's sushi's price, swap the data
-                    // between them
-                    if (current.getPrice() > index.getPrice()) {
-                        tempName = current.getName();
-                        tempImage = current.getImage();
-                        tempPrice = current.getPrice();
+                    // If current Employees earnings is greater than the next, swap
+                    if (current.getEarnings() > index.getEarnings()) {
+                        Employee temp = new Employee(current.getPosition(), current.getJob(), current.getName(), current.getCompany(), current.getPayRate(), current.getEarnings());
+                        // String tempName = current.getName();
+                        // String tempCompany = current.getCompany();
+                        // int tempPay = current.getPayRate();
+                        // int tempEarning = current.getEarnings();
+                        // boolean tempHired = current.getHired();
 
-                        current.setName(index.getName());
-                        current.setImage(index.getImage());
-                        current.setPrice(index.getPrice());
+                        current = new Employee(index.getPosition(), index.getJob(), index.getName(), index.getCompany(), index.getPayRate(), index.getEarnings());
+                        // current.setName(index.getName());
+                        // current.setCompany(index.getCompany());
+                        // current.setPay(index.getPayRate());
+                        // current.setEarning(index.getEarnings());
+                        // current.setHired(index.getHired());
 
-                        index.setName(tempName);
-                        index.setImage(tempImage);
-                        index.setPrice(tempPrice);
+                        index = new Employee(temp.getPosition(), temp.getJob(), temp.getName(), temp.getCompany(), temp.getPayRate(), temp.getEarnings());
+                        // index.setName(tempName);
+                        // index.setImage(tempImage);
+                        // index.setPrice(tempPrice);
                     }
                     
                     index = index.getNext();
@@ -104,7 +108,7 @@ public class EmployeeList {
     }
 
     /*
-     * Returns the head of the list in the Sushi type
+     * Returns the head of the list in the Employee list
      */
     public Employee getHead(){
         return head;
@@ -148,7 +152,7 @@ public class EmployeeList {
 
         //go through the linked lists and fills a string with information
         while (current != null) {
-            info += "[" + i +"] - "+current.getStats() + "\n";
+            info += "[" + i +"] - "+current.toString() + "\n";
             current = current.getNext();
             i++;
         }

@@ -1,47 +1,60 @@
+import java.util.*;
+import java.io.*;
 public class FoodFrenzy {
-    private int[][] arr;
     private int position1r;
     private int position1c;
     private int position2r;
     private int position2c;
-    private String[][] board = new String [3][3];
-        // {"-GO!-"," -E- "," -E- "," -E- "," -?- "," -E- "," -?- "}, //ROW 0
-        // {" -E- ","     ","     ","     ","     ","     "," -E- "}, //ROW 1
-        // {" -E- ","     ","     ","     ","     ","     "," -E- "}, //ROW 2
-        // {" -E- ","     ","     ","JAIL!","     ","     "," -?- "}, //ROW 3
-        // {" -E- ","     ","     ","     ","     ","     "," -E- "}, //ROW 4
-        // {" -?- ","     ","     ","     ","     ","     "," -E- "}, //ROW 5
-        // {" -?- "," -E- "," -E- "," -?- "," -E- "," -E- "," -?- "}  //ROW 6
-    // };
+    private String[][] board = {
+        {"-GO!-"," -E- "," -E- "," -E- "," -?- "," -E- "," -?- "}, //ROW 0
+        {" -E- ","     ","     ","     ","     ","     "," -E- "}, //ROW 1
+        {" -E- ","     ","     ","     ","     ","     "," -E- "}, //ROW 2
+        {" -E- ","     ","     ","JAIL!","     ","     "," -?- "}, //ROW 3
+        {" -E- ","     ","     ","     ","     ","     "," -E- "}, //ROW 4
+        {" -?- ","     ","     ","     ","     ","     "," -E- "}, //ROW 5
+        {" -?- "," -E- "," -E- "," -?- "," -E- "," -E- "," -?- "}  //ROW 6
+    };
+    BoardSquare[] playBoard = new BoardSquare[24];
 
-   // BoardSquare[] playBoard = new BoardSquare[24];
-    // playBoard[0] = new EmptySquare(0, "YOURE ON THE GO SQUARE HEHE! YOUR EMPLOYEES MADE YOU MONEY");
-    // playBoard[1] = new Employee(1, "Data Scientist","Harley Quinn", "FoodChainID", "300", "150");
-    // playBoard[2] = new Employee(2, "Software Engineer","Joshua Triffo", "FoodChainID", "210","100");
-    // playBoard[3] = new Employee(3, "Web Developer", "An Ha", "UberEats", "270", "120");
-    // playBoard[4] = new ChanceCard();
-    // playBoard[5] = new Employee(5, "Data Scientist", "Edwin Ngui", "UberEats", "420", "200");
-    // playBoard[6] = new ChanceCard();
+    //move this method down later
+    public void readFileToFill(){
 
-    // playBoard[7] = new Employee(7, "API Management", "Sonny Ebora", "UberEats", "360", "195");
-    // playBoard[8] = new Employee(8, "CAD Designer", "Tolga Selcuk", "UberEats", "420", "210");
-    // playBoard[9] = new ChanceCard();
-    // playBoard[10] = new Employee(10, "Service Technician", "Hammad Khalil", "AutoMistTM", "500", "300");
-    // playBoard[11] = new Employee(11, "Mechnical Engineer", "Luke Granados", "AutoMistTM", "540", "320");
-    // playBoard[12] = new ChanceCard();
-    // playBoard[13] = new Employee(13, "Mechanical Engineer", "Parantap Bhatt", "Beyond Meat", "430", "240");
-    // playBoard[14] = new Employee(14, "Software Engineer", "Angela Nguyen", "Beyond Meat", "420", "230");
-    // playBoard[15] = new ChanceCard();
-    // playBoard[16] = new Employee(16, "Data Scientist", "Eric Doucet", "Beyond Meat", "390", "210");
-    // playBoard[17] = new Employee(17, "Biological Engineer", "Nini Polad", "Turtle Tree", "500", "340");
-    // playBoard[18] = new ChanceCard();
-    // playBoard[19] = new ChanceCard();
-    // playBoard[20] = new Employee(20, "Maintanence Technician", "Dillon Hu", "Turtle Tree", "300", "190");
-    // playBoard[21] = new Employee(21, "Software Engineer", "Nearhos Lotus", "Turtle Tree", "340", "500");
-    // playBoard[22] = new Employee(22, "Analytical Chemist", "Justin Tran", "FoodChainID","400", "230");
-    // playBoard[23] = new Employee(23, "Full Stack Web Developer", "Vincent Tran", "FoodChainID","294", "260");
+        String file = "EmployeeBoard.txt";
+        String line;
+        String[] data = new String[6];
 
+        //employee(boardPosition, JobName, EmployeeName, Brand, Payrate, Salary)
+        try{
 
+            FileReader stream = new FileReader (file);
+            BufferedReader read = new BufferedReader (stream);
+            int i = 0;
+
+            while((line=read.readLine()) !=null){
+                data = line.split(",");
+
+                if (i==0 || i==4 || i==6 || i==9 || i==12 || i==15 || i==18 || i==19){
+                    playBoard[i] = new ChanceCard();
+                } else {
+                    playBoard[i] = new Employee(Integer.parseInt(data[0]),data[1], data[2], data[3],Integer.parseInt(data[4]), Integer.parseInt(data[5]));
+                    //System.out.println("EMPLOYEE #"+i+"\n"+playBoard[i]+"\n");
+                    //System.out.println(data[0]+","+ data[1]+","+  data[2]+","+  data[3]+","+  data[4]+","+  data[5]);
+                    
+                    for (int j = 0 ; j > 6 ; j++ ){
+                        data[j]=null;
+                    }
+                }
+                System.out.println(playBoard[i]);
+                i++;
+                
+            }
+            
+
+        } catch (Exception e) {
+            System.err.println("Error caught : " +e.getMessage());
+        }
+
+    }
     
     public FoodFrenzy(Chef P1, Chef P2){
         position1r = getRow(P1.getPosition());
@@ -66,6 +79,8 @@ public class FoodFrenzy {
 
         if(position<=7){
             return 0;
+        } else if(position==25){
+            return 3;
         } else {
             return 6;
         }
@@ -88,24 +103,38 @@ public class FoodFrenzy {
 
         if ((position>=19 && position <=24) || position == 1){
             return 0;
-        } else {
+        } else if (position==25){
+            return 3;
+        }else {
             return 6;
         }
 
     }
 
-    public void printBoard(){
+    public void printBoard(Chef P1, Chef P2){
+        position1r = getRow(P1.getPosition());
+        position1c = getColoumn(P1.getPosition());
+        position2r = getRow(P2.getPosition());
+        position2c= getColoumn(P2.getPosition());
+        
         String red = "\u001B[41m";
         String blue = "\033[44m";
         String reset = "\033[0m";
 
-        String[][] copyBoard = board;
+        //method to make a copy of an array
+        String[][] copyBoard = new String[board.length][board[0].length];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                copyBoard[i][j] = board[i][j];
+            }
+        }
 
+        //determine what to do based on whether or not players are on the same position
         if (samePosition()==true){
             String pt1 = copyBoard[position1r][position1c].substring(0, 2);
             String pt2 = copyBoard[position1r][position1c].substring(2, 4);
             copyBoard[position1r][position1c] = red+pt1+blue+pt2+reset;
-        } else {
+        } else { //in the case they are in two different positions
             copyBoard[position1r][position1c] = red+copyBoard[position1r][position1c]+reset;
             copyBoard[position2r][position2c] = blue+copyBoard[position2r][position2c]+reset;
         }
@@ -119,6 +148,17 @@ public class FoodFrenzy {
 
     }
 
+    //maybe delete later?
+    public void positionUpdate(Chef P, int turn){
+        if (turn%2==1){//if the number is odd, player 1's(red) turn
+            position1r = getRow(P.getPosition());
+            position1c = getColoumn(P.getPosition());
+        } else {
+            position2r = getRow(P.getPosition());
+            position2c= getColoumn(P.getPosition());
+        }
+    }
+    
     public boolean samePosition(){
         if ((position1r == position2r) && (position1c == position2c)){
             return true;
@@ -127,8 +167,29 @@ public class FoodFrenzy {
         }
     }
 
-    public void play(Chef player){
+    public BoardSquare getSquare(Chef player){
 
+        Scanner in = new Scanner (System.in);
+        readFileToFill();
+        int boardPosition = (player.getPosition()-1);
+
+        return playBoard[boardPosition];
+
+    } 
+
+    public void print2D(String arr[][]){
+        // Loop through all rows
+        for (int i = 0; i < arr.length; i++)
+ 
+            // Loop through all elements of current row
+            for (int j = 0; j < arr[i].length; j++)
+                System.out.print(arr[i][j] + " ");
+    }
+
+    public void printArr(String arr[]){
+        for (int i = 0 ; i<arr.length ; i++){
+            System.out.print(arr[i] + " ");
+        }
     }
 
     
