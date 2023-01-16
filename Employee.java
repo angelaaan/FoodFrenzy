@@ -1,24 +1,26 @@
 public class Employee extends BoardSquare {
     String name;
     String companyName;
+    String job;
     int payRate;
-    int salary;
+    int earnings;
     boolean hired;
     Employee next;
 
     //empty constructor employee node
     public Employee(int a){
-        boardPosition = a;
+        super(a);
     }
 
     //filled employee node
-    public Employee(int pos, String Name, String company, int pay, int dailySalary, boolean hire){
-        boardPosition = pos;
+    public Employee(int boardPosition, String position, String Name, String company, int pay, int daily){
+        super(boardPosition);
+        job = position;
         name = Name;
         companyName = company;
         payRate = pay;
-        salary = dailySalary;
-        hired = hire;
+        earnings = daily;
+        hired = false;
         next = null;
     }
 

@@ -31,21 +31,18 @@ public class Main {
         while (choice==0){
             
             String currentName = "";
-            if (turn%2==0){
-                currentName = red.getName();
-            } else {
-                currentName = blue.getName();
-            }
-
-            System.out.println("Chef "+currentName+"'s turn");
-            choice = menuChoice();
-            
             Chef current;
             if (turn%2==1){ //if turn number is odd, it is player 1's turn
                 current = red;
+                currentName = red.getName();
             } else {
                 current = blue;
+                currentName = blue.getName();
             }
+
+            //printing the menu
+            System.out.println("Chef "+currentName+"'s turn");
+            choice = menuChoice();
 
             //if statement for user choice and decision making  
             if (choice==1){
@@ -62,9 +59,12 @@ public class Main {
                 +"\n    \\O____O\\/ ))"
                 +"\n  ((\n\nYou rolled a "+roll);
 
+            //set the position 
             current.setPosition(current.getPosition()+roll);
-            System.out.println(red.getPosition());;
-            System.out.println(blue.getPosition());
+            board.printBoard();
+
+            //play through
+            board.play(current);
                 
             }
 

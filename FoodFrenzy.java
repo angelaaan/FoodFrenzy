@@ -1,19 +1,47 @@
 public class FoodFrenzy {
+    private int[][] arr;
+    private int position1r;
+    private int position1c;
+    private int position2r;
+    private int position2c;
+    private String[][] board = new String [3][3];
+        // {"-GO!-"," -E- "," -E- "," -E- "," -?- "," -E- "," -?- "}, //ROW 0
+        // {" -E- ","     ","     ","     ","     ","     "," -E- "}, //ROW 1
+        // {" -E- ","     ","     ","     ","     ","     "," -E- "}, //ROW 2
+        // {" -E- ","     ","     ","JAIL!","     ","     "," -?- "}, //ROW 3
+        // {" -E- ","     ","     ","     ","     ","     "," -E- "}, //ROW 4
+        // {" -?- ","     ","     ","     ","     ","     "," -E- "}, //ROW 5
+        // {" -?- "," -E- "," -E- "," -?- "," -E- "," -E- "," -?- "}  //ROW 6
+    // };
 
-    String[][] board = {
-        {"-GO!-"," -E- "," -E- "," -E- "," -?- "," -E- "," -?- "}, //ROW 0
-        {" -E- ","     ","     ","     ","     ","     "," -E- "}, //ROW 1
-        {" -E- ","     ","     ","     ","     ","     "," -E- "}, //ROW 2
-        {" -E- ","     ","     ","JAIL!","     ","     "," -?- "}, //ROW 3
-        {" -E- ","     ","     ","     ","     ","     "," -E- "}, //ROW 4
-        {" -?- ","     ","     ","     ","     ","     "," -E- "}, //ROW 5
-        {" -?- "," -E- "," -E- "," -?- "," -E- "," -E- "," -?- "}  //ROW 6
-    };
+   // BoardSquare[] playBoard = new BoardSquare[24];
+    // playBoard[0] = new EmptySquare(0, "YOURE ON THE GO SQUARE HEHE! YOUR EMPLOYEES MADE YOU MONEY");
+    // playBoard[1] = new Employee(1, "Data Scientist","Harley Quinn", "FoodChainID", "300", "150");
+    // playBoard[2] = new Employee(2, "Software Engineer","Joshua Triffo", "FoodChainID", "210","100");
+    // playBoard[3] = new Employee(3, "Web Developer", "An Ha", "UberEats", "270", "120");
+    // playBoard[4] = new ChanceCard();
+    // playBoard[5] = new Employee(5, "Data Scientist", "Edwin Ngui", "UberEats", "420", "200");
+    // playBoard[6] = new ChanceCard();
 
-    int position1r;
-    int position1c;
-    int position2r;
-    int position2c;
+    // playBoard[7] = new Employee(7, "API Management", "Sonny Ebora", "UberEats", "360", "195");
+    // playBoard[8] = new Employee(8, "CAD Designer", "Tolga Selcuk", "UberEats", "420", "210");
+    // playBoard[9] = new ChanceCard();
+    // playBoard[10] = new Employee(10, "Service Technician", "Hammad Khalil", "AutoMistTM", "500", "300");
+    // playBoard[11] = new Employee(11, "Mechnical Engineer", "Luke Granados", "AutoMistTM", "540", "320");
+    // playBoard[12] = new ChanceCard();
+    // playBoard[13] = new Employee(13, "Mechanical Engineer", "Parantap Bhatt", "Beyond Meat", "430", "240");
+    // playBoard[14] = new Employee(14, "Software Engineer", "Angela Nguyen", "Beyond Meat", "420", "230");
+    // playBoard[15] = new ChanceCard();
+    // playBoard[16] = new Employee(16, "Data Scientist", "Eric Doucet", "Beyond Meat", "390", "210");
+    // playBoard[17] = new Employee(17, "Biological Engineer", "Nini Polad", "Turtle Tree", "500", "340");
+    // playBoard[18] = new ChanceCard();
+    // playBoard[19] = new ChanceCard();
+    // playBoard[20] = new Employee(20, "Maintanence Technician", "Dillon Hu", "Turtle Tree", "300", "190");
+    // playBoard[21] = new Employee(21, "Software Engineer", "Nearhos Lotus", "Turtle Tree", "340", "500");
+    // playBoard[22] = new Employee(22, "Analytical Chemist", "Justin Tran", "FoodChainID","400", "230");
+    // playBoard[23] = new Employee(23, "Full Stack Web Developer", "Vincent Tran", "FoodChainID","294", "260");
+
+
     
     public FoodFrenzy(Chef P1, Chef P2){
         position1r = getRow(P1.getPosition());
@@ -99,7 +127,10 @@ public class FoodFrenzy {
         }
     }
 
-    
+    public void play(Chef player){
 
+    }
+
+    
 
 }
