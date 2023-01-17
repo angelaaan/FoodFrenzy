@@ -3,6 +3,7 @@ public class Chef {
     int position;
     double balance;
     int rolls;
+    int lapCount;
     double netWorth;
     EmployeeList list = new EmployeeList();
     
@@ -10,6 +11,7 @@ public class Chef {
         name = Name;
         balance = 1000;
         position = 1;
+        lapCount = 0;
     }
 
     public double getBalance(){
@@ -18,6 +20,10 @@ public class Chef {
 
     public EmployeeList getList(){
         return list;
+    }
+
+    public int getLapCount(){
+        return lapCount;
     }
 
 
@@ -43,6 +49,10 @@ public class Chef {
 
     public void setList(EmployeeList newList){
         list = newList;
+    }
+
+    public void lapCompleted(){
+        lapCount++;
     }
 
     public String toString(){

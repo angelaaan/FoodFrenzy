@@ -28,11 +28,22 @@ public class EmployeeList {
     }
 
     public double calculatePayRoll(){
-        Employee current = head;
+        Employee currentEmployee = head;
         double total=0;
 
-        while(current != null){
-            total += current.getPayRate();
+        while(currentEmployee != null){
+            total += currentEmployee.getPayRate();
+        }
+
+        return total;
+    }
+
+    public double calculateEarnings(){
+        Employee currentEmployee = head;
+        double total=0;
+
+        while(currentEmployee != null){
+            total += currentEmployee.getEarnings();
         }
 
         return total;

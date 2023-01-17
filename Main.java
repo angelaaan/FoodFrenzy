@@ -65,11 +65,8 @@ public class Main {
                 +"\n  ((\n\nYou rolled a "+roll);
                 turnCompletion = true;
 
-            //set the position for the current chef playing
-            current.setPosition(current.getPosition()+roll);
-
-            //print the board out
-            System.out.println(current.getName()+"'s' position is now "+current.getPosition());
+            //make a method with lines 69-75 to change the position properly!!! and then print out the board
+            changePlayerPosition(current, roll);
             board.printBoard(red, blue);
 
             //get the board square and determine 
@@ -85,7 +82,7 @@ public class Main {
         } else { //in the case that it is a chance card
             option = rand.nextInt(10)+1; 
 
-            if (currentEmployeeList.size()<2){
+            if (currentEmployeeList.size()<1){
                 System.out.println("Move "+1+" squares back.");
                 current.setPosition(current.getPosition()-1);
                 board.printBoard(red, blue);
@@ -161,36 +158,62 @@ public class Main {
         return choice;
     }
 
-    public static void chanceCard1(Chef current, int option, EmployeeList list){
+    public static void changePlayerPosition(Chef player, int num){
+        int newPosition = player.getPosition()+num;
+        
+        if (newPosition>24){ //if they finish a lap
+            //make sure they have the lap counted
+            player.lapCompleted();
+
+            //set their position to the correct one
+            newPosition-= 24;
+
+            //pay the player
+            payPlayer(player, player.getList());
+        }
+
+        player.setPosition(newPosition);
+    }
+
+    public static void payEmployees(Chef player, EmployeeList list){
+        player.setBalance((player.getBalance())-list.calculatePayRoll());
+    }
+
+    public static void payPlayer(Chef player, EmployeeList list){
+        player.setBalance(player.getBalance()+list.calculateEarnings());
+    }
+
+    //chance card that occurs only if the player has less than 1 employees
+    public static void chanceCard1(Chef player, int option, EmployeeList list){
         Random rand = new Random();
 
         if (option == 1){
             System.out.println("You commited tax fraud! Go To JAIL! You must roll an even number to get out!");
-            current.setPosition(25);
+            player.setPosition(25);
     } else if (option ==2 || option== 3){
             System.out.println("You have to fire your oldest employee :(");
         //check if their employee list is empty
-        if ((current.getList()).isEmpty()){
-            System.out.println("EXCEPT YOU DONT HAVE TO BECAUSE YOU DONT HAVE EMPLOYEES TO FIRE ANYWAYS!");
-        } else {
         //try catch statement to make a linkedlist, dequeue an employee, and then reset that linked list for the player
         try {
             list.fire();
-            current.setList(list);
+            player.setList(list);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        }
-    } else if (option ==4 || option == 5 || option ==6 || option ==7 || option ==8 || option ==9){
+    } else if (option ==4 || option == 5 || option ==6 || option ==7 || option ==8){
         System.out.println("It's time to pay your employees!");
         //set the balance as the iniitial balance minus the payroll you have to pay all the employees
-        current.setBalance((current.getBalance())-list.calculatePayRoll());
+        payEmployees(player, list);
 
+    } else if (option ==9){
+        payPlayer(player, list);
+        System.out.println("EXTRA PAY DAY! YOU TOOK YOUR EMPLOYEES EARNINGS TODAY!!"
+        + "\nYour new balance is : "+player.getBalance());
     } else{
-        double donation = rand.nextDouble(current.getBalance()/2)+1;
-        current.setBalance(current.getBalance()-donation);
+        double donation = rand.nextDouble(player.getBalance()/2)+1;
+        player.setBalance(player.getBalance()-donation);
         System.out.println("WOWWW YOU DECIDED TO DONATE TO SICK KIDS THANK YOU FOR YOUR DONATION OF $"+donation
-        + "\nYour balance is now $"+ current.getBalance()+ "! Thank you for your kindness <3");
+        + "\nYour balance is now $"+ player.getBalance()+ "! Thank you for your kindness <3");
     }
     }
 
