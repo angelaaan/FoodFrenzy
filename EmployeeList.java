@@ -27,6 +27,17 @@ public class EmployeeList {
         size++;
     }
 
+    public double calculatePayRoll(){
+        Employee current = head;
+        double total=0;
+
+        while(current != null){
+            total += current.getPayRate();
+        }
+
+        return total;
+    }
+
     /*
      * Removes the data at the front of the queue and 
      * throws an Exception if the queue is empty.

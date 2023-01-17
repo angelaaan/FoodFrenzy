@@ -37,18 +37,13 @@ public class FoodFrenzy {
                     playBoard[i] = new ChanceCard();
                 } else {
                     playBoard[i] = new Employee(Integer.parseInt(data[0]),data[1], data[2], data[3],Integer.parseInt(data[4]), Integer.parseInt(data[5]));
-                    //System.out.println("EMPLOYEE #"+i+"\n"+playBoard[i]+"\n");
-                    //System.out.println(data[0]+","+ data[1]+","+  data[2]+","+  data[3]+","+  data[4]+","+  data[5]);
                     
                     for (int j = 0 ; j > 6 ; j++ ){
                         data[j]=null;
                     }
                 }
-                System.out.println(playBoard[i]);
                 i++;
-                
-            }
-            
+            }    
 
         } catch (Exception e) {
             System.err.println("Error caught : " +e.getMessage());
@@ -68,7 +63,7 @@ public class FoodFrenzy {
         int potentialPositionA = 8;
         int potentialPositionB = 24;
 
-        for (int i = 1 ; i<5 ; i++){
+        for (int i = 1 ; i<6 ; i++){
             if (position == potentialPositionA || position == potentialPositionB){
                 return i;
             } else {
@@ -92,7 +87,7 @@ public class FoodFrenzy {
         int potentialPositionA = 2;
         int potentialPositionB = 18;
 
-        for (int i = 1 ; i<5 ; i++){
+        for (int i = 1 ; i<6 ; i++){
             if (position == potentialPositionA || position == potentialPositionB){
                 return i;
             } else {

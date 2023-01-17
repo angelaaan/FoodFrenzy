@@ -45,4 +45,11 @@ public class Chef {
         list = newList;
     }
 
+    public String toString(){
+        String info = "Name:" + name + "\nPosition on Board: Square #"+position + "\nBalance: "+ balance + "\nNet Worth: "+netWorth
+        + "\nEmployee Count: "+list.size();
+
+        return info;
+    }
+
 }

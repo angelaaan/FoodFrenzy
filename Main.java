@@ -23,8 +23,7 @@ public class Main {
             + "\nE - Employee"
             + "\n? - Chance Card"
             + "\nThis is what the board looks like! The path starts at 1 ends at 25."
-            + "\nYour position will be marked by your colours. After 40 rolls, chef with the most"
-            + "\nnetworth WINS! MAY THE BEST BUSINESS MAN WIN!!");
+            + "\nYour position will be marked by your colours. After 40 rolls, chef with the most networth WINS! MAY THE BEST BUSINESS MAN WIN!!");
         board.printBoard(red,blue);
 
         //game loop
@@ -41,7 +40,7 @@ public class Main {
             }
 
             //printing the menu
-            System.out.println("Chef "+currentName+"'s turn");
+            System.out.println("\nChef "+currentName+"'s turn");
             choice = menuChoice();
 
             //if statement for user choice and decision making  
@@ -77,31 +76,35 @@ public class Main {
             System.out.println("You have landed on an EMPLOYEE SQUARE!"
             + "\nHere are the stats of the employee you have landed on!");
 
-            System.out.println("--------------\n"+square);
+            System.out.println("--------------\n"+square+"\n--------------");
 
-            //check if Employee is yet hired
+            //check if employee is already hired or not
             if (((Employee)square).getHired()==true){
                 System.out.println("Looks like this employee is already hired! It's okay surely you can hire another one..");
-            }
-            else { //allow player option to hire
-                System.out.println("Looks like this employee is available for hire! Would you like to hire them?"
+
+            //check if employee's pay rate is not in the chef's balance range
+            } else if ((((Employee) square).getPayRate())>current.getBalance()){
+                System.out.println("Looks like you do not have the funds to hire this employee");
+
+            //if able to, allow chef player the option to hire
+            } else { 
+                System.out.println("Looks like this employee is available for you to hire! Would you like to hire them?"
                 + "\n[1] - yes"
                 + "\n[2] - no");
                 option = in.nextInt();
 
                 //change the hire status for that employee and add them to the Employee list of employees
                 if (option == 1){
+
                     //change the state of hire
                     ((Employee)square).setHire(true);
-                    //add the employee to the lists
 
                     //make an employee list to add the employee into and then set the employee list to that temporary one
                     //this needs to be done because the linked list is inside the Chef player object
                     temp.hire((Employee) square);
                     current.setList(temp);
 
-                    System.out.println("Player hired! Welcome "+ ((Employee)square).getName()+" to your team"
-                    + "\nas a "+((Employee)square).getJob()+"!");
+                    System.out.println("Player hired! Welcome "+ ((Employee)square).getName()+" to your team as a "+((Employee)square).getJob()+"!");
                 } else {
                     System.out.println("What a passed opportunity..");
                 }
@@ -119,7 +122,7 @@ public class Main {
                 //check if their employee list is empty
                 if ((current.getList()).isEmpty()){
                     System.out.println("EXCEPT YOU DONT HAVE TO BECAUSE YOU DONT HAVE EMPLOYEES TO FIRE ANYWAYS!");
-                }
+                } else {
                 //try catch statement to make a linkedlist, dequeue an employee, and then reset that linked list for the player
                 try {
                     temp.fire();
@@ -127,8 +130,16 @@ public class Main {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
             } else if (option ==4 || option == 5 || option ==6 || option ==7 || option ==8 || option ==9){
                 System.out.println("It's time to pay your employees!");
+                
+                if ((current.getList()).isEmpty()){
+                    System.out.println("EXCEPT YOU DONT HAVE TO BECAUSE YOU DONT HAVE EMPLOYEES TO PAY ANYWAYS!");
+                } else {
+                    //set the balance as the iniitial balance minus the payroll you have to pay all the employees
+                    current.setBalance((current.getBalance())-temp.calculatePayRoll());
+                }
             } else{
                 double donation = rand.nextDouble(current.getBalance()/2)+1;
                 current.setBalance(current.getBalance()-donation);
@@ -137,9 +148,19 @@ public class Main {
             }
         }
             
-                
             }
+            
+            else if (choice ==2){
+                board.printBoard(red, blue);
+            } else if (choice == 3){ //view Red Chef Stats
+                System.out.println(red);
+            } else if (choice ==4){ //view Blue Chef Stats
+                System.out.println(blue);
+            } else if (choice == 5){ //Employees Lists
+                System.out.println(current.getList());
+            } else if (choice == 6){ //Save Data
 
+            }
             choice=0;
             turn++;
         }
@@ -173,5 +194,12 @@ public class Main {
         
         return choice;
     }
+
+
+
+
+
+
+    
 
 }
