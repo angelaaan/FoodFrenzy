@@ -35,12 +35,12 @@ public class FoodFrenzy {
 
                 if (i==0 || i==4 || i==6 || i==9 || i==12 || i==15 || i==18 || i==19){
                     playBoard[i] = new ChanceCard();
-                } else {
-                    playBoard[i] = new Employee(Integer.parseInt(data[0]),data[1], data[2], data[3],Integer.parseInt(data[4]), Integer.parseInt(data[5]));
-                    
-                    for (int j = 0 ; j > 6 ; j++ ){
-                        data[j]=null;
-                    }
+                        i++;
+                }
+                
+                playBoard[i] = new Employee(Integer.parseInt(data[0]),data[1], data[2], data[3],Integer.parseInt(data[4]), Integer.parseInt(data[5]));
+                for (int j = 0 ; j > 6 ; j++){
+                    data[j]=null;
                 }
                 i++;
             }    
@@ -56,6 +56,7 @@ public class FoodFrenzy {
         position1c = getColoumn(P1.getPosition());
         position2r = getRow(P2.getPosition());
         position2c= getColoumn(P2.getPosition());
+        readFileToFill();
     }
 
     public int getRow(int position){
@@ -134,12 +135,14 @@ public class FoodFrenzy {
             copyBoard[position2r][position2c] = blue+copyBoard[position2r][position2c]+reset;
         }
 
+        System.out.println("─────────────────────────────────────────");
         for (int i = 0; i<copyBoard.length; i++){
             for (int j = 0; j < copyBoard[i].length; j++){
                 System.out.print(copyBoard[i][j] + " ");
             }
             System.out.println();
         }
+        System.out.println("─────────────────────────────────────────");
 
     }
 
@@ -165,7 +168,6 @@ public class FoodFrenzy {
     public BoardSquare getSquare(Chef player){
 
         Scanner in = new Scanner (System.in);
-        readFileToFill();
         int boardPosition = (player.getPosition()-1);
 
         return playBoard[boardPosition];
