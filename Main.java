@@ -6,8 +6,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
         Random rand = new Random();
         int turn = 1;
-        int choice = 0;
-
+        
         //introductions and setting up player personas
         System.out.print("Welcome! You start with 1000 dollars\n\nEnter Player 1 Red Chef's Name : ");
         Chef red = new Chef(in.nextLine());
@@ -27,7 +26,8 @@ public class Main {
         board.printBoard(red,blue);
 
         //game loop
-        while (choice==0){
+        while (turn<41){
+            int choice = 0;
             
             String currentName = "";
             Chef current;
@@ -39,6 +39,7 @@ public class Main {
                 currentName = blue.getName();
             }
 
+            while (choice!=6){
             //printing the menu
             System.out.println("\nChef "+currentName+"'s turn");
             choice = menuChoice();
@@ -158,11 +159,10 @@ public class Main {
                 System.out.println(blue);
             } else if (choice == 5){ //Employees Lists
                 System.out.println(current.getList());
-            } else if (choice == 6){ //Save Data
-
+            } else if (choice == 6){ //Finish Turn
+                turn ++;
             }
-            choice=0;
-            turn++;
+        }
         }
         
     }
@@ -179,8 +179,9 @@ public class Main {
                     + "\n[3] - Red Chef Stats"
                     + "\n[4] - Blue Chef Stats"
                     + "\n[5] - Employees List"
-                    + "\n[6] - Save Data and Leave"
-                    + "\n[7] - Wipe Data and Leave"+ "\u001B[0m"
+                    + "\n[6] - Finish Turn"
+                    + "\n[7] - Save Data and Leave"
+                    + "\n[8] - Wipe Data and Leave"+ "\u001B[0m"
                     + "\n\nOption Choice : ");
         while (choice==0){
             choice = in.nextInt();
