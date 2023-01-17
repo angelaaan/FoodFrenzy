@@ -90,16 +90,21 @@ public class Main {
                 current.setPosition(current.getPosition()-1);
                 board.printBoard(red, blue);
 
+                System.out.println("[ press ENTER to see your new square!]");
+                in.nextLine();
+
                 if ((board.getSquare(current).getType()).equalsIgnoreCase("Employee")){
                     employeeCard(current, board.getSquare(current), currentEmployeeList);
+                } else {
+                    System.out.println("You landed on a chance card...\nHere is 5 dollars you found on the floor");
+                    current.setBalance(current.getBalance()+5);
+                    System.out.println("Your new balance is "+current.getBalance());
                 }
+
             } else {
                 chanceCard1(current, option, currentEmployeeList);
             }
-
-
-        }
-            
+        }            
             }
             
             else if (choice ==2){
