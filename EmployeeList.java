@@ -29,10 +29,11 @@ public class EmployeeList {
 
     public double calculatePayRoll(){
         Employee currentEmployee = head;
-        double total=0;
+        double total=0.0;
 
         while(currentEmployee != null){
             total += currentEmployee.getPayRate();
+            currentEmployee = currentEmployee.getNext();
         }
 
         return total;
@@ -44,6 +45,7 @@ public class EmployeeList {
 
         while(currentEmployee != null){
             total += currentEmployee.getEarnings();
+            currentEmployee = currentEmployee.getNext();
         }
 
         return total;
@@ -174,7 +176,7 @@ public class EmployeeList {
 
         //go through the linked lists and fills a string with information
         while (current != null) {
-            info += "[" + i +"] - "+current.toString() + "\n";
+            info += "[ Employee " + i +" ]\n "+current.toString() + "\n";
             current = current.getNext();
             i++;
         }

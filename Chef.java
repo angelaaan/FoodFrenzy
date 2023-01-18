@@ -5,6 +5,7 @@ public class Chef {
     int rolls;
     int lapCount;
     double netWorth;
+    boolean debt;
     EmployeeList list = new EmployeeList();
     
     public Chef(String Name){
@@ -12,6 +13,7 @@ public class Chef {
         balance = 1000;
         position = 1;
         lapCount = 0;
+        debt = false;
     }
 
     public double getBalance(){
@@ -41,10 +43,17 @@ public class Chef {
 
     public void setBalance(int num){
         balance = (double)num;
+        if (balance < 0){
+            debt = true;
+        }
     }
 
     public void setBalance (double num){
         balance = num;
+
+        if (balance < 0){
+            debt = true;
+        }
     }
 
     public void setList(EmployeeList newList){
@@ -53,6 +62,10 @@ public class Chef {
 
     public void lapCompleted(){
         lapCount++;
+    }
+
+    public boolean checkDebt(){
+        return debt;
     }
 
     public String toString(){
