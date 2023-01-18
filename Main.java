@@ -13,14 +13,10 @@ public class Main {
         // introductions and setting up player personas
         System.out.print("Welcome Stranger..!\nWould you like to read the rules?");
         printRules();
+        
+        Chef red = new Chef(inputString("\nEnter Player 1 Red Chef's Name : "));
 
-        System.out.println("\nEnter Player 1 Red Chef's Name : ");
-        //Chef red = new Chef(in.nextLine());
-        Chef red = new Chef(inputString("Enter Name : "));
-
-        System.out.println("Enter Player 2 Blue Chef's Name : ");
-        //Chef blue = new Chef(in.nextLine());
-        Chef blue = new Chef(inputString("Enter Name : "));
+        Chef blue = new Chef(inputString("\nEnter Player 2 Blue Chef's Name : "));
 
         // getting the board set up with players on it
         FoodFrenzy board = new FoodFrenzy(red, blue);
@@ -157,12 +153,14 @@ public class Main {
             if (choice==1){
                 System.out.println("The Four*10 Food Frenzy is a two player restaurant simulation game "
                 + "\nwhere Chef players compete against each other to get the most money after 40 rolls of the dice."
-                + "\nChefs earn money by hiring employees from third-party companies to temporarly work for them");
+                + "\nChefs earn money by hiring employees from third-party companies to temporarly work for them"
+                + "\n--> you can do this by landing on an employee square and by paying their PayRate, you can hire them!"
+                + "\n--> The \"earnings\" in their statistics is how much that employee will make you per board lap"
+                + "\nThe only way you can make your money is employees so be sure to have employees at all times!");
             }
 
         } while (error);
        
-
     }
 
     public static String inputString(String prompt){
