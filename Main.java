@@ -10,40 +10,17 @@ public class Main {
         Random rand = new Random();
         int turn = 1;
 
-        boolean error = false;
-        int choice = 0;
-
-        do{
-            error = false;
-            try{
-                System.out.println("\n[1] - yes\n[2] - no\nCHOICE: ");
-                choice = in.nextInt();
-
-                // if (choice>2 || choice<1){
-                //     throw new InputMismatchException();
-                // }
-            } catch (Exception e){
-                System.out.println("Please input a valid answer");
-                error=true;
-            }
-
-            if (choice==1){
-                System.out.println("The Four*10 Food Frenzy is a two player restaurant simulation game "
-                + "\nwhere Chef players compete against each other to get the most money after 40 rolls of the dice."
-                + "\nChefs earn money by hiring employees from third-party companies to temporarly work for them");
-            }
-
-        } while (error=true);
-
         // introductions and setting up player personas
         System.out.print("Welcome Stranger..!\nWould you like to read the rules?");
-        //printRules();
+        printRules();
 
         System.out.println("\nEnter Player 1 Red Chef's Name : ");
-        Chef red = new Chef(in.nextLine());
+        //Chef red = new Chef(in.nextLine());
+        Chef red = new Chef(inputString("Enter Name : "));
 
-        System.out.print("Enter Player 2 Blue Chef's Name : ");
-        Chef blue = new Chef(in.nextLine());
+        System.out.println("Enter Player 2 Blue Chef's Name : ");
+        //Chef blue = new Chef(in.nextLine());
+        Chef blue = new Chef(inputString("Enter Name : "));
 
         // getting the board set up with players on it
         FoodFrenzy board = new FoodFrenzy(red, blue);
@@ -162,29 +139,56 @@ public class Main {
         boolean error = false;
         int choice = 0;
 
-        // do{
-        //     error = false;
-        //     try{
-        //         System.out.println("\n[1] - yes\n[2] - no\nCHOICE: ");
-        //         choice = in.nextInt();
+        do{
+            error = false;
+            try{
+                System.out.println("\n[1] - yes\n[2] - no\nCHOICE: ");
+                choice = in.nextInt();
 
-        //         // if (choice>2 || choice<1){
-        //         //     throw new InputMismatchException();
-        //         // }
-        //     } catch (Exception e){
-        //         System.out.println("Please input a valid answer");
-        //         error=true;
-        //     }
+                if (choice>2 || choice<1){
+                    throw new InputMismatchException();
+                }
+            } catch (Exception e){
+                System.out.println("Please input a valid answer");
+                error=true;
+                in.nextLine();
+            }
 
-        //     if (choice==1){
-        //         System.out.println("The Four*10 Food Frenzy is a two player restaurant simulation game "
-        //         + "\nwhere Chef players compete against each other to get the most money after 40 rolls of the dice."
-        //         + "\nChefs earn money by hiring employees from third-party companies to temporarly work for them");
-        //     }
+            if (choice==1){
+                System.out.println("The Four*10 Food Frenzy is a two player restaurant simulation game "
+                + "\nwhere Chef players compete against each other to get the most money after 40 rolls of the dice."
+                + "\nChefs earn money by hiring employees from third-party companies to temporarly work for them");
+            }
 
-        // } while (error=true);
+        } while (error);
        
 
+    }
+
+    public static String inputString(String prompt){
+        Scanner in = new Scanner (System.in);
+        boolean error = false;
+        String info = "";
+
+        do{
+            info = "";
+            try{
+                System.out.print(prompt);
+                info = in.nextLine();
+
+                if (info.equals("")){
+                    throw new Exception();
+                }
+
+            } catch (Exception e){
+                System.out.println("uh oh.. looks like you entered an enter valid answer");
+                error = true;
+                in.nextLine();
+            }
+            
+        } while (error);
+
+        return info;
     }
 
     // takes in user decision
@@ -357,5 +361,6 @@ public class Main {
         System.out.println("\n[ Hit ENTER to "+action+" ]");
         in.nextLine();
     }
+
 }
 
