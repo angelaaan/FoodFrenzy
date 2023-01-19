@@ -13,7 +13,7 @@ public class Main {
         // introductions and setting up player personas
         System.out.print("Welcome Stranger..!\nWould you like to read the rules?");
         printRules();
-        
+
         Chef red = new Chef(inputString("\nEnter Player 1 Red Chef's Name : "));
 
         Chef blue = new Chef(inputString("\nEnter Player 2 Blue Chef's Name : "));
@@ -44,7 +44,7 @@ public class Main {
                 currentName = blue.getName();
             }
 
-            //player turn loop
+            // player turn loop
             while (choice != -1) {
                 gameFiller("continue");
 
@@ -55,19 +55,10 @@ public class Main {
                 if (choice == -1) {
                     turn++;
                 } else if (choice == 1) {
-
-                    // randomize a roll
-                    int roll = rand.nextInt(6) + 1;
-
-                    System.out.println("      ______"
-                            + "\n    /O     /\\"
-                            + "\n   /   O  /O \\"
-                            + "\n((/_____O/    \\"
-                            + "\n  \\O    O\\    /"
-                            + "\n   \\O    O\\ O/ "
-                            + "\n    \\O____O\\/ ))"
-                            + "\n  ((\n\nYou rolled a " + roll);
                     turnCompletion = true;
+                    // randomize a roll
+                    // int roll = rand.nextInt(6) + 1;
+                    int roll = rollDice();
 
                     // make a method with lines 69-75 to change the position properly!!! and then
                     // print out the board
@@ -112,7 +103,7 @@ public class Main {
                                 System.out.println("Your new balance is " + current.getBalance());
                             }
                         } else {
-                            option  = 5;
+                            option = 5;
                             chanceCard(current, option, currentEmployeeList);
                         }
                     }
@@ -130,60 +121,99 @@ public class Main {
 
     }
 
-    public static void printRules(){
-        Scanner in = new Scanner (System.in);
+    public static int rollDice(){
+
+        Random rand = new Random();
+
+        int roll = rand.nextInt(6)+1;
+
+        System.out.println(" _______");
+
+        if (roll==1){
+            System.out.println("|       |"
+            +"\n|   .   |"
+            + "\n|       |");
+        } else if (roll==2){
+            System.out.println("|       |"
+            + "\n|   .   |"
+            + "\n|   .   |");
+        } else if (roll==3){
+            System.out.println("|   .   |"
+            +"\n|   .   |"
+            +"\n|   .   |");
+        } else if (roll==4){
+            System.out.println("| .   . |"
+            +"\n|       |"
+            +"\n| .   . |");
+        } else if (roll == 5){
+            System.out.println("| .   . |"
+            +"\n|   .   |"
+            +"\n| .   . |");
+        } else if (roll == 6){
+            System.out.println("| .   . |"
+            +"\n| .   . |"
+            +"\n| .   . |");
+        }
+        
+        System.out.println("|_______|");
+
+        return 20;
+    }
+
+    public static void printRules() {
+        Scanner in = new Scanner(System.in);
         boolean error = false;
         int choice = 0;
 
-        do{
+        do {
             error = false;
-            try{
+            try {
                 System.out.println("\n[1] - yes\n[2] - no\nCHOICE: ");
                 choice = in.nextInt();
 
-                if (choice>2 || choice<1){
+                if (choice > 2 || choice < 1) {
                     throw new InputMismatchException();
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Please input a valid answer");
-                error=true;
-                in.nextLine();
-            }
-
-            if (choice==1){
-                System.out.println("The Four*10 Food Frenzy is a two player restaurant simulation game "
-                + "\nwhere Chef players compete against each other to get the most money after 40 rolls of the dice."
-                + "\nChefs earn money by hiring employees from third-party companies to temporarly work for them"
-                + "\n--> you can do this by landing on an employee square and by paying their PayRate, you can hire them!"
-                + "\n--> The \"earnings\" in their statistics is how much that employee will make you per board lap"
-                + "\nThe only way you can make your money is employees so be sure to have employees at all times!");
-            }
-
-        } while (error);
-       
-    }
-
-    public static String inputString(String prompt){
-        Scanner in = new Scanner (System.in);
-        boolean error = false;
-        String info = "";
-
-        do{
-            info = "";
-            try{
-                System.out.print(prompt);
-                info = in.nextLine();
-
-                if (info.equals("")){
-                    throw new Exception();
-                }
-
-            } catch (Exception e){
-                System.out.println("uh oh.. looks like you entered an enter valid answer");
                 error = true;
                 in.nextLine();
             }
-            
+
+            if (choice == 1) {
+                System.out.println("The Four*10 Food Frenzy is a two player restaurant simulation game "
+                        + "\nwhere Chef players compete against each other to get the most money after 40 rolls of the dice."
+                        + "\nChefs earn money by hiring employees from third-party companies to temporarly work for them"
+                        + "\n--> you can do this by landing on an employee square and by paying their PayRate, you can hire them!"
+                        + "\n--> The \"earnings\" in their statistics is how much that employee will make you per board lap"
+                        + "\nThe only way you can make your money is employees so be sure to have employees at all times!");
+            }
+
+        } while (error);
+
+    }
+
+    public static String inputString(String prompt) {
+        Scanner in = new Scanner(System.in);
+        boolean error = false;
+        String info = "";
+
+        do {
+            error = false;
+            try {
+                System.out.print(prompt);
+                info = in.nextLine();
+
+                if (info.equalsIgnoreCase("")) {
+                    throw new Exception();
+                }
+
+            } catch (Exception e) {
+                System.out.println("uh oh.. looks like you entered an enter valid answer\n[Hit ENTER to try again]");
+                error = true;
+                in.nextLine();
+            }
+
         } while (error);
 
         return info;
@@ -193,21 +223,22 @@ public class Main {
     public static int menuChoice(boolean turnCompletion) {
         Scanner in = new Scanner(System.in);
         String[] MainMenu = { "View Board", "Red Chef Stats", "Blue Chef Stats", "Employees List",
-                "Save Data and Leave", "Wipe Data and Leave"};
+                "Save Data and Leave", "Wipe Data and Leave" };
 
         System.out.print("\u001B[33m" + "------------------"
                 + "\n[ M A I N   M E N U ]"
                 + "\n[1] - ");
 
-        //prints the menu
+        // prints the menu
         for (int i = -1; i < MainMenu.length; i++) {
-            if (turnCompletion==false && i==-1){ //allow player to roll the dice because they have not yet
+            if (turnCompletion == false && i == -1) { // allow player to roll the dice because they have not yet
                 System.out.print("Roll Dice");
-            } else if (turnCompletion==true && i==-1){// in the case that they are already done their turn, display the option to finish their turn instead
+            } else if (turnCompletion == true && i == -1) {// in the case that they are already done their turn, display
+                                                           // the option to finish their turn instead
                 System.out.print("Finish Turn");
             } else {
-                System.out.print("\n[" + (i+2) + "] - " + MainMenu[i]);
-            }           
+                System.out.print("\n[" + (i + 2) + "] - " + MainMenu[i]);
+            }
         }
 
         System.out.print("\n------------------\u001B[0m"
@@ -224,12 +255,12 @@ public class Main {
             }
         }
 
-        //in the case that they had completed their turn
-            //the option "1" that they pick is actually option -1
-            //which is to let the next player begin their turn
-            if (turnCompletion==true && choice==1){
-                choice = -1;
-            }
+        // in the case that they had completed their turn
+        // the option "1" that they pick is actually option -1
+        // which is to let the next player begin their turn
+        if (turnCompletion == true && choice == 1) {
+            choice = -1;
+        }
         return choice;
     }
 
@@ -261,7 +292,7 @@ public class Main {
     // chance card that occurs only if the player has less than 1 employees
     public static void chanceCard(Chef player, int option, EmployeeList list) {
         Random rand = new Random();
-        
+
         System.out.println("───────────────────────────────");
 
         if (option == 1) {
@@ -289,16 +320,16 @@ public class Main {
 
         } else {
 
-            //check if the player is in debt
+            // check if the player is in debt
             double tempBalance;
-            if (player.checkDebt()== true){
-                tempBalance = 0+player.getBalance();
+            if (player.checkDebt() == true) {
+                tempBalance = 0 + player.getBalance();
                 System.out.print("EVEN IF YOU ARE IN DEBT, ");
             } else {
                 tempBalance = player.getBalance();
             }
 
-            double donation = rand.nextDouble(tempBalance/ 2) + 1;
+            double donation = rand.nextDouble(tempBalance / 2) + 1;
             player.setBalance(player.getBalance() - donation);
             System.out.println("YOU DECIDED TO DONATE TO SICK KIDS WOWWW! THANK YOU FOR YOUR DONATION OF $" + donation
                     + "!Thank you for your kindness <3");
@@ -324,7 +355,8 @@ public class Main {
 
             // check if employee's pay rate is not in the chef's balance range
         } else if ((((Employee) square).getPayRate()) > current.getBalance()) {
-            System.out.println("Looks like this employee is availabe for hire but you do not have the funds to hire this employee");
+            System.out.println(
+                    "Looks like this employee is availabe for hire but you do not have the funds to hire this employee");
 
             // if able to, allow chef player the option to hire
         } else {
@@ -341,9 +373,9 @@ public class Main {
                 ((Employee) square).setHire(true);
 
                 // charge the player for hiring
-                current.setBalance(current.getBalance()-(((Employee)square).getPayRate()));
+                current.setBalance(current.getBalance() - (((Employee) square).getPayRate()));
 
-                //add the employee to the linked list
+                // add the employee to the linked list
                 currentEmployeeList.hire((Employee) square);
                 current.setList(currentEmployeeList);
 
@@ -354,11 +386,11 @@ public class Main {
             }
         }
     }
-    public static void gameFiller(String action){
+
+    public static void gameFiller(String action) {
         Scanner in = new Scanner(System.in);
-        System.out.println("\n[ Hit ENTER to "+action+" ]");
+        System.out.println("\n[ Hit ENTER to " + action + " ]");
         in.nextLine();
     }
 
 }
-

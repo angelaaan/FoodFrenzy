@@ -10,8 +10,8 @@ public class FoodFrenzy {
         {" -E- ","     ","     ","     ","     ","     "," -E- "}, //ROW 1
         {" -E- ","     ","     ","     ","     ","     "," -E- "}, //ROW 2
         {" -E- ","     ","     ","JAIL!","     ","     "," -?- "}, //ROW 3
-        {" -E- ","     ","     ","     ","     ","     "," -E- "}, //ROW 4
-        {" -?- ","     ","     ","     ","     ","     "," -E- "}, //ROW 5
+        {" -?- ","     ","     ","     ","     ","     "," -E- "}, //ROW 4
+        {" -E- ","     ","     ","     ","     ","     "," -E- "}, //ROW 5
         {" -?- "," -E- "," -E- "," -?- "," -E- "," -E- "," -?- "}  //ROW 6
     };
     BoardSquare[] playBoard = new BoardSquare[24];
@@ -33,12 +33,15 @@ public class FoodFrenzy {
             while((line=read.readLine()) !=null){
                 data = line.split(",");
 
-                if (i==0 || i==4 || i==6 || i==9 || i==12 || i==15 || i==18 || i==19){
+                if (i==0 || i==4 || i==6 || i==9 || i==12 || i==15 || i==18 || i==20){
+                    System.out.println("i is "+i+" and i just made a chancee card!");
                     playBoard[i] = new ChanceCard();
-                        i++;
+                    i++;
                 }
                 
                 playBoard[i] = new Employee(Integer.parseInt(data[0]),data[1], data[2], data[3],Integer.parseInt(data[4]), Integer.parseInt(data[5]));
+                System.out.println("i is "+i+" and i just made an employee card!");
+
                 for (int j = 0 ; j > 6 ; j++){
                     data[j]=null;
                 }
