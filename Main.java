@@ -14,8 +14,8 @@ public class Main {
         System.out.print("Welcome Stranger..!\nWould you like to read the rules?");
         int seeRules = yesOrNo();
         if (seeRules == 1) {
-            System.out.println("The Four*10 Food Frenzy is a two player restaurant simulation game "
-                    + "\nwhere Chef players compete against each other to get the most money after 40 rolls of the dice."
+            System.out.println("The Food Frenzy is a two player restaurant simulation game "
+                    + "\nwhere Chef players compete against each other to get the most money after 20 rolls of the dice."
                     + "\nChefs earn money by hiring employees from third-party companies to temporarly work for them"
                     + "\n--> you can do this by landing on an employee square and by paying their PayRate, you can hire them!"
                     + "\n--> The \"earnings\" in their statistics is how much that employee will make you per board lap"
@@ -30,7 +30,7 @@ public class Main {
         FoodFrenzy board = new FoodFrenzy(red, blue);
 
         // introductions
-        System.out.println("\n\nWELCOME TO FOUR*10 FOOD FRENZY"
+        System.out.println("\n\nWELCOME TO FOOD FRENZY"
                 + "\nE - Employee"
                 + "\n? - Chance Card"
                 + "\nThis is what the board looks like! The path starts at 1 ends at 25."
@@ -67,6 +67,15 @@ public class Main {
                     // randomize a roll
                     // int roll = rand.nextInt(6) + 1;
                     int roll = rollDice();
+
+                    if (current.getJail()==true){
+                        if (roll%2==0){//even roll
+                            System.out.println("YOU ROLLED AN EVEN NUMBER! YOU ARE FREE FROM JAIL!!!");
+                            current.setPosition(1);
+                        } else {
+                            System.out.println("You need to roll an even number to free yourself...better luck next time");
+                        }
+                    }
 
                     // print out the board
                     changePlayerPosition(current, roll);
@@ -115,7 +124,7 @@ public class Main {
                         }
                     }
                     System.out.print("Here are your chef stats\n"+current);
-                    
+
                 } else if (choice == 2) {
                     board.printBoard(red, blue);
                 } else if (choice == 3) { // view Red Chef Stats
@@ -309,6 +318,7 @@ public class Main {
         if (option == 1) {
             System.out.println("You commited tax fraud! Go To JAIL! You must roll an even number to get out!");
             player.setPosition(25);
+            player.setJail(true);
         } else if (option == 2 || option == 3) {
             System.out.println("You have to fire your oldest employee :(");
             try {
