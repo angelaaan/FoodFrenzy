@@ -2,7 +2,6 @@ public class Chef {
     String name;
     int position;
     double balance;
-    int rolls;
     int lapCount;
     double netWorth;
     boolean debt;
@@ -32,7 +31,6 @@ public class Chef {
         return lapCount;
     }
 
-
     public int getPosition(){
         return position;
     }
@@ -43,6 +41,14 @@ public class Chef {
 
     public String getColour(){
         return colourCode;
+    }
+
+    public boolean getJail(){
+        return jail;
+    }
+
+    public void setJail(boolean status){
+        jail = status;
     }
 
     public void setPosition(int num){

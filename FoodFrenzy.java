@@ -14,7 +14,7 @@ public class FoodFrenzy {
         {" -E- ","     ","     ","     ","     ","     "," -E- "}, //ROW 5
         {" -?- "," -E- "," -E- "," -?- "," -E- "," -E- "," -?- "}  //ROW 6
     };
-    BoardSquare[] playBoard = new BoardSquare[24];
+    BoardSquare[] playBoard = new BoardSquare[25];
 
     //move this method down later
     public void readFileToFill(){
@@ -33,7 +33,11 @@ public class FoodFrenzy {
             while((line=read.readLine()) !=null){
                 data = line.split(",");
 
-                if (i==0 || i==4 || i==6 || i==9 || i==12 || i==15 || i==18 || i==20){
+                if (i==0){
+                    playBoard[i] = new JailSquare(0);
+                    i++;
+                }
+                else if (i==4 || i==6 || i==9 || i==12 || i==15 || i==18 || i==20){
                     playBoard[i] = new ChanceCard();
                     i++;
                 }
@@ -49,6 +53,8 @@ public class FoodFrenzy {
         } catch (Exception e) {
             System.err.println("Error caught : " +e.getMessage());
         }
+
+        playBoard[24] = new JailSquare(24);
 
     }
     

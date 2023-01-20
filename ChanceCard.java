@@ -3,7 +3,6 @@ public class ChanceCard extends BoardSquare {
     
     public ChanceCard(){
         super(3, "Chance");
-    //    cardInfo = "";
     }
 
     @Override

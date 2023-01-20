@@ -38,7 +38,7 @@ public class Main {
         board.printBoard(red, blue);
 
         // entire game loop
-        while (turn < 21) {
+        while (turn < 5) {
             int choice = 0;
             boolean turnCompletion = false;
 
@@ -69,16 +69,20 @@ public class Main {
                     int roll = rollDice();
 
                     if (current.getJail()==true){
+
                         if (roll%2==0){//even roll
                             System.out.println("YOU ROLLED AN EVEN NUMBER! YOU ARE FREE FROM JAIL!!!");
                             current.setPosition(1);
+                            current.setJail(false);
                         } else {
                             System.out.println("You need to roll an even number to free yourself...better luck next time");
                         }
+
+                    } else {
+                        changePlayerPosition(current, roll);
                     }
 
                     // print out the board
-                    changePlayerPosition(current, roll);
                     board.printBoard(red, blue);
 
                     // get the board square and determine
@@ -91,7 +95,8 @@ public class Main {
                     if (type.equalsIgnoreCase("Employee")) {
                         employeeCard(current, square, currentEmployeeList);
 
-                    } else { // in the case that it is a chance card
+                    // in the case that it is a chance card
+                    } else if (type.equalsIgnoreCase("Chance")) {
                         System.out.println("You've landed on a chance card!");
                         gameFiller("view Chance card");
 
@@ -122,8 +127,14 @@ public class Main {
                             option = 5;
                             chanceCard(current, option, currentEmployeeList);
                         }
+                    } else { 
+                        if (current.getPosition()==1){
+                            System.out.println("You are on the go square !");
+                        }
                     }
-                    System.out.print("Here are your chef stats\n"+current);
+
+                    gameFiller("view chef status");
+                    System.out.print(current+"\n");
 
                 } else if (choice == 2) {
                     board.printBoard(red, blue);
@@ -133,9 +144,12 @@ public class Main {
                     System.out.println(blue);
                 } else if (choice == 5) { // Employees Lists
                     System.out.println(current.getList());
+                } else if (choice == 6) { //
                 }
             }
         }
+
+        //in the case the game is over and we look for a winner
 
     }
 
@@ -312,6 +326,7 @@ public class Main {
     // chance card that occurs only if the player has less than 1 employees
     public static void chanceCard(Chef player, int option, EmployeeList list) {
         Random rand = new Random();
+        option = 1;
 
         System.out.println("───────────────────────────────");
 
