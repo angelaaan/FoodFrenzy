@@ -157,7 +157,7 @@ public class Main {
         
         System.out.println("|_______|");
 
-        return 20;
+        return roll;
     }
 
     public static void printRules() {
