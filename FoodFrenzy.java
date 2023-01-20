@@ -34,13 +34,11 @@ public class FoodFrenzy {
                 data = line.split(",");
 
                 if (i==0 || i==4 || i==6 || i==9 || i==12 || i==15 || i==18 || i==20){
-                    System.out.println("i is "+i+" and i just made a chancee card!");
                     playBoard[i] = new ChanceCard();
                     i++;
                 }
                 
                 playBoard[i] = new Employee(Integer.parseInt(data[0]),data[1], data[2], data[3],Integer.parseInt(data[4]), Integer.parseInt(data[5]));
-                System.out.println("i is "+i+" and i just made an employee card!");
 
                 for (int j = 0 ; j > 6 ; j++){
                     data[j]=null;

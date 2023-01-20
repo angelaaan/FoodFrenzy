@@ -12,11 +12,19 @@ public class Main {
 
         // introductions and setting up player personas
         System.out.print("Welcome Stranger..!\nWould you like to read the rules?");
-        printRules();
+        int seeRules = yesOrNo();
+        if (seeRules == 1) {
+            System.out.println("The Four*10 Food Frenzy is a two player restaurant simulation game "
+                    + "\nwhere Chef players compete against each other to get the most money after 40 rolls of the dice."
+                    + "\nChefs earn money by hiring employees from third-party companies to temporarly work for them"
+                    + "\n--> you can do this by landing on an employee square and by paying their PayRate, you can hire them!"
+                    + "\n--> The \"earnings\" in their statistics is how much that employee will make you per board lap"
+                    + "\nThe only way you can make your money is employees so be sure to have employees at all times!");
+        }
 
-        Chef red = new Chef(inputString("\nEnter Player 1 Red Chef's Name : "));
+        Chef red = new Chef(inputString("\nEnter Player 1 Red Chef's Name : "), "\u001B[31m");
 
-        Chef blue = new Chef(inputString("\nEnter Player 2 Blue Chef's Name : "));
+        Chef blue = new Chef(inputString("\nEnter Player 2 Blue Chef's Name : "), "\u001B[34m");
 
         // getting the board set up with players on it
         FoodFrenzy board = new FoodFrenzy(red, blue);
@@ -49,7 +57,7 @@ public class Main {
                 gameFiller("continue");
 
                 // printing the menu
-                System.out.println("Chef " + currentName + "'s turn");
+                System.out.println("Chef " + current.getColour()+ currentName + "\u001B[0m's turn");
                 choice = menuChoice(turnCompletion);
 
                 if (choice == -1) {
@@ -60,7 +68,6 @@ public class Main {
                     // int roll = rand.nextInt(6) + 1;
                     int roll = rollDice();
 
-                    // make a method with lines 69-75 to change the position properly!!! and then
                     // print out the board
                     changePlayerPosition(current, roll);
                     board.printBoard(red, blue);
@@ -77,7 +84,7 @@ public class Main {
 
                     } else { // in the case that it is a chance card
                         System.out.println("You've landed on a chance card!");
-                        gameFiller("view card");
+                        gameFiller("view Chance card");
 
                         option = rand.nextInt(10) + 1;
 
@@ -107,6 +114,8 @@ public class Main {
                             chanceCard(current, option, currentEmployeeList);
                         }
                     }
+                    System.out.print("Here are your chef stats\n"+current);
+                    
                 } else if (choice == 2) {
                     board.printBoard(red, blue);
                 } else if (choice == 3) { // view Red Chef Stats
@@ -155,12 +164,12 @@ public class Main {
             +"\n| .   . |");
         }
         
-        System.out.println("|_______|");
+        System.out.println("|_______|\n\nYou rolled a "+roll+"!");
 
         return roll;
     }
 
-    public static void printRules() {
+    public static int yesOrNo() {
         Scanner in = new Scanner(System.in);
         boolean error = false;
         int choice = 0;
@@ -180,16 +189,9 @@ public class Main {
                 in.nextLine();
             }
 
-            if (choice == 1) {
-                System.out.println("The Four*10 Food Frenzy is a two player restaurant simulation game "
-                        + "\nwhere Chef players compete against each other to get the most money after 40 rolls of the dice."
-                        + "\nChefs earn money by hiring employees from third-party companies to temporarly work for them"
-                        + "\n--> you can do this by landing on an employee square and by paying their PayRate, you can hire them!"
-                        + "\n--> The \"earnings\" in their statistics is how much that employee will make you per board lap"
-                        + "\nThe only way you can make your money is employees so be sure to have employees at all times!");
-            }
-
         } while (error);
+
+        return choice;
 
     }
 
@@ -241,19 +243,28 @@ public class Main {
             }
         }
 
-        System.out.print("\n------------------\u001B[0m"
-                + "\n\nOption Choice : ");
+        System.out.println("\n------------------\u001B[0m");
 
-        int choice = 0;
-        while (choice == 0) {
-            choice = in.nextInt();
+        int choice=0;
+        do {
 
-            // check to make sure it's valid
-            if (choice > 7 || choice < 1) {
+            try{
+                System.out.print("Choice : ");
+                choice = in.nextInt();
+
+                if (choice > 7 || choice < 1) {
+                    choice = 0;
+                    throw new InputMismatchException();
+                }
+
+            } catch (InputMismatchException e){
+                System.out.println("Invalid input please try again ...");
                 choice = 0;
-                System.out.println("Invalid Input..thats not an option please try again :(");
+                in.nextLine();
             }
-        }
+
+        } while (choice ==0);
+        
 
         // in the case that they had completed their turn
         // the option "1" that they pick is actually option -1
@@ -345,6 +356,7 @@ public class Main {
 
         System.out.println("You have landed on an EMPLOYEE SQUARE!"
                 + "\nHere are the stats of the employee you have landed on!");
+        gameFiller("view");
 
         System.out.println("----------------\n" + square + "\n----------------");
 
@@ -360,10 +372,9 @@ public class Main {
 
             // if able to, allow chef player the option to hire
         } else {
-            System.out.println("Looks like this employee is available for you to hire! Would you like to hire them?"
-                    + "\n[1] - yes"
-                    + "\n[2] - no");
-            option = in.nextInt();
+            System.out.print("Looks like this employee is available for you to hire! Would you like to hire them?"
+                + "\nYou pay this employee "+ ((Employee) square).getPayRate()+ " but they make you "+ ((Employee)square).getEarnings());
+            option = yesOrNo();
 
             // change the hire status for that employee and add them to the Employee list of
             // employees
@@ -380,7 +391,8 @@ public class Main {
                 current.setList(currentEmployeeList);
 
                 System.out.println("Player hired! Welcome " + ((Employee) square).getName() + " to your team as a "
-                        + ((Employee) square).getJob() + "!");
+                + ((Employee) square).getJob() + "!");
+                
             } else {
                 System.out.println("What a passed opportunity..");
             }

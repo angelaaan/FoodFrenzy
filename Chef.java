@@ -6,14 +6,18 @@ public class Chef {
     int lapCount;
     double netWorth;
     boolean debt;
+    boolean jail;
+    String colourCode;
     EmployeeList list = new EmployeeList();
     
-    public Chef(String Name){
+    public Chef(String Name, String color){
         name = Name;
         balance = 1000;
         position = 1;
         lapCount = 0;
+        colourCode = color;
         debt = false;
+        jail = false;
     }
 
     public double getBalance(){
@@ -35,6 +39,10 @@ public class Chef {
 
     public String getName(){
         return name;
+    }
+
+    public String getColour(){
+        return colourCode;
     }
 
     public void setPosition(int num){
@@ -69,8 +77,8 @@ public class Chef {
     }
 
     public String toString(){
-        String info = "Name:" + name + "\nPosition on Board: Square #"+position + "\nBalance: "+ balance + "\nNet Worth: "+netWorth
-        + "\nEmployee Count: "+list.size();
+        String info = "──────────────────\n"+colourCode+"Name: " + name + "\nPosition on Board: Square #"+position + "\nBalance: "+ balance + "\nNet Worth: "+netWorth
+        + "\nEmployee Count: "+list.size()+"\n\u001B[0m──────────────────";
 
         return info;
     }
