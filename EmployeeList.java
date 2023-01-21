@@ -163,6 +163,26 @@ public class EmployeeList  implements Serializable{
     }
 
     /*
+     * Searches through the linked list for a name and returns whether or not its true
+     */
+    public boolean search(Employee head, String name){
+        //Base case
+        if (head == null){
+            return false;
+        }
+
+        //If key is present in current Employee node, return true
+        if ((head.getName()).equalsIgnoreCase(name)){
+            return true;
+        }
+
+        //Recur through the remaining linked list
+        return search(head.getNext(), name);
+    }
+    
+    
+
+    /*
      * returns a toString reprsentation of the entire queue of sushi
      * without the images and only with the sushi informations
      */

@@ -198,7 +198,6 @@ public class Main {
                 } else if (choice == 5) { // Employees Lists
                     System.out.println(current.getList());
                 } else if (choice == 6) { // Save Data and Leave
-                    System.out.println("youre in choice 6 successfuly!!!!!!!!!!!!!1");
 
                     FileWriter write = new FileWriter(foodFrenzyFile);
                     BufferedWriter writer = new BufferedWriter(write);
@@ -527,8 +526,13 @@ public class Main {
 
         // check if employee is already hired or not
         if (((Employee) square).getHired() == true) {
-            System.out
-                    .println("Looks like this employee is already hired! It's okay surely you can hire another one..");
+            
+            if (currentEmployeeList.search(currentEmployeeList.getHead(), ((Employee)square).getName())){
+                System.out.println("Looks like this employee is already on your team! Hehe");
+            } else {
+                System.out.println("Looks like this employee is already hired! It's okay surely you can hire another one..");
+            }
+
 
             // check if employee's pay rate is not in the chef's balance range
         } else if ((((Employee) square).getPayRate()) > current.getBalance()) {
