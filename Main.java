@@ -190,7 +190,10 @@ public class Main {
                     System.out.print(current + "\n");
 
                 } else if (choice == 2) {
-                    board.printBoard(red, blue);
+                    //board.printBoard(red, blue);
+                    (current.getList()).sortList();
+                    System.out.println(current.getList());
+
                 } else if (choice == 3) { // view Red Chef Stats
                     System.out.println(red);
                 } else if (choice == 4) { // view Blue Chef Stats

@@ -37,6 +37,27 @@ public class Employee extends BoardSquare  implements Serializable {
         hired = Hire;
     }
 
+    public Employee (int boardPosition, String n, String company, String Job, int Pay, int Earn, boolean Hire, Employee newNext){
+        super(boardPosition, "Employee");
+        name = n;
+        companyName = company;
+        job = Job;
+        payRate = Pay;
+        earnings = Earn;
+        hired = Hire;
+        next = newNext;
+    }
+
+    public void changeDetails (int newPositon, String newName, String newCompany, String newJob, int newPay, int newEarning, boolean newHire){
+        boardPosition = newPositon;
+        name = newName;
+        companyName = newCompany;
+        job = newJob;
+        payRate = newPay;
+        earnings = newEarning;
+        hired = newHire;
+    }
+
     public void setHire(boolean a){
         hired = a;
     }
