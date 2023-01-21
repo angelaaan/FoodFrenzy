@@ -8,15 +8,13 @@ public class Main {
         Random rand = new Random();
         int turn = 1;
 
-        File foodFrenzyFile = new File("foodFrenzy.txt");
-
-        FileWriter write = new FileWriter(foodFrenzyFile);
-        BufferedWriter writer = new BufferedWriter(write);
+        File foodFrenzyFile = new File("./foodFrenzy.txt");
 
         ///////////////////////////////////////////////////////////////////////testing
 
         Chef red = new Chef();
         Chef blue = new Chef();
+        String line = "";
 
         if (foodFrenzyFile.exists()){
 
@@ -25,15 +23,31 @@ public class Main {
                 FileReader read = new FileReader(foodFrenzyFile);
                 BufferedReader reader = new BufferedReader(read);
 
-                String line = reader.readLine();
-                readPlayer(line, red);
+                line = reader.readLine();
+                red = readPlayer(line, red);
 
-                do {
-                    line=reader.readLine();
+                // do {
+                //     line=reader.readLine();
+                //     readEmployee(line,red);
+                // } while (!line.endsWith("/"));
+
+                while ((line=reader.readLine()).endsWith("/")){
                     readEmployee(line,red);
-                } while (!line.endsWith("/"));
+                }
 
                 readPlayer(line,blue);
+                
+                // do {
+                //     line=reader.readLine();
+                //     readEmployee(line, blue);
+                // } while (!line.endsWith("/"));
+
+                while ((line=reader.readLine())!=null){
+                    readEmployee(line, blue);
+                }
+
+                reader.close();
+                read.close();
                 
 
             } catch (IOException e) {
@@ -48,6 +62,8 @@ public class Main {
             blue = new Chef(inputString("\nEnter Player 2 Blue Chef's Name : "), "\u001B[34m");
         }
 
+        FileWriter write = new FileWriter(foodFrenzyFile);
+        BufferedWriter writer = new BufferedWriter(write);
         ///////////////////////////////////////////////////////testing
 
         // introductions and setting up player personas
@@ -207,16 +223,27 @@ public class Main {
 
     }
 
-    public static void readPlayer(String line, Chef player){
+    public static Chef readPlayer(String line, Chef player){
         String[] chefStats = line.split(",");
+        System.out.println("name is "+chefStats[0]);
+
         int position =  Integer.parseInt(chefStats[1]);
+        System.out.println("position is "+ position);
+
         double balance = Double.parseDouble(chefStats[2]);
+        System.out.println("balance is "+balance);
+
         int lapCount = Integer.parseInt(chefStats[3]);
+        System.out.println("lapcount is "+ lapCount);
+
         double netWorth = Double.parseDouble(chefStats[4]);
+        System.out.println("networth "+ netWorth);
+
         boolean debt = Boolean.parseBoolean(chefStats[5]);
         boolean jail = Boolean.parseBoolean(chefStats[6]);
 
         player = new Chef(chefStats[0], position, balance, lapCount, netWorth, debt, jail, chefStats[7]);
+        return player;
     }
 
     public static void readEmployee(String line, Chef player){
@@ -224,6 +251,7 @@ public class Main {
         int position = Integer.parseInt(EmployeeStats[0]);
         int payRate = Integer.parseInt(EmployeeStats[4]);
         int earnings = Integer.parseInt(EmployeeStats[5]);
+        EmployeeStats[6] = EmployeeStats[6].substring(0, EmployeeStats[6].length()-1);
         boolean hired = Boolean.parseBoolean(EmployeeStats[6]);
         Employee employee = new Employee(position, EmployeeStats[1], EmployeeStats[2], EmployeeStats[3], payRate, earnings, hired);
         (player.getList()).hire(employee);
