@@ -11,7 +11,7 @@ public class Chef {
     
     public Chef(String Name, String color){
         name = Name;
-        balance = 1000;
+        balance = 6000;
         position = 1;
         lapCount = 0;
         colourCode = color;
@@ -98,9 +98,10 @@ public class Chef {
     }
 
     public String toString(){
+
         String info = "──────────────────\n"+colourCode+"Name: " + name 
         + "\nPosition on Board: Square #"+position + "\nBalance: "+ balance + "\nNet Worth: "+netWorth
-        + "\nEmployee Count: "+list.size()+"\n\u001B[0m──────────────────";
+        + "\nEmployee Count: "+list.size()+"\nLaps: "+lapCount+"\n\u001B[0m──────────────────";
 
         return info;
     }
