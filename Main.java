@@ -18,7 +18,7 @@ public class Main {
         System.out.print("WELCOME TO FOOD FRENZY..!\nWould you like to read the rules?");
         int seeRules = yesOrNo();
         if (seeRules == 1) {
-            System.out.println("The Food Frenzy is a two player restaurant simulation game "
+            System.out.println("The Food Frenzy is a two player business simulation game "
                     + "\nwhere Chef players compete against each other to get the most money after 20 rolls of the dice."
                     + "\nChefs earn money by hiring employees from third-party companies to temporarly work for them"
                     + "\n--> you can do this by landing on an employee square and by paying their PayRate, you can hire them!"
@@ -88,7 +88,7 @@ public class Main {
         board.printBoard(red, blue);
 
         // entire game loop
-        while (turn < 41) {
+        while (turn < 21) {
             int choice = 0;
             boolean turnCompletion = false;
 
@@ -218,17 +218,44 @@ public class Main {
 
                     System.out.println("\nsaving successfuly");
                     choice = -1;
-                    turn = 42;
+                    turn = 22;
 
                 } else if (choice == 7) { // Wipe Data and Leave
-                    turn = 42;
+                    turn = 22;
                     choice = -1;
                 }
             }
         }
 
-        System.out.println("game over");
         // in the case the game is over and we look for a winner
+        if (turn!= 45){
+
+            Chef winner;
+            Chef loser;
+
+            if (red.getBalance() > blue.getBalance()){
+                winner = red;
+                loser = blue;
+            } else {
+                winner = blue;
+                loser = red;
+            }
+
+            System.out.println("THE WINNER IS "+ winner.getName() + "WITH "+(winner.getBalance()-loser.getBalance())
+            + "$ MORE THAN "+ loser.getName()+"\nHERE IS YOUR TROPHY!! CONGRATULATIONS!");
+
+            System.out.println("     ___________"
+            +"\n    '._==_==_=_.'"
+            +"\n    .-\\:      /-."
+            +"\n   | (|:.     |) |"
+            +"\n    '-|:. "+(winner.getName()).substring(0,1)+"   |-'"
+            +"\n      \\::.    /"
+            +"\n       '::. .'"
+            +"\n         ) ("
+            +"\n       _.' '._"
+            +"\n      `\"\"\"\"\"\"\"`");
+
+        }
 
     }
 
