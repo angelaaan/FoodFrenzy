@@ -1,14 +1,54 @@
 import java.util.*;
-
 import javax.sql.rowset.spi.SyncResolver;
-
 import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
         Random rand = new Random();
         int turn = 1;
+
+        File foodFrenzyFile = new File("foodFrenzy.txt");
+
+        FileWriter write = new FileWriter(foodFrenzyFile);
+        BufferedWriter writer = new BufferedWriter(write);
+
+        ///////////////////////////////////////////////////////////////////////testing
+
+        Chef red = new Chef();
+        Chef blue = new Chef();
+
+        if (foodFrenzyFile.exists()){
+
+            try {
+
+                FileReader read = new FileReader(foodFrenzyFile);
+                BufferedReader reader = new BufferedReader(read);
+
+                String line = reader.readLine();
+                readPlayer(line, red);
+
+                do {
+                    line=reader.readLine();
+                    readEmployee(line,red);
+                } while (!line.endsWith("/"));
+
+                readPlayer(line,blue);
+                
+
+            } catch (IOException e) {
+                System.out.println("Problem with the input and output");
+                System.err.println("FileNotFoundException: " + e.getMessage());
+            } catch (Exception e) {
+                System.err.println("Error: " + e.getMessage());
+            }
+
+        } else {
+            red = new Chef(inputString("\nEnter Player 1 Red Chef's Name : "), "\u001B[31m");
+            blue = new Chef(inputString("\nEnter Player 2 Blue Chef's Name : "), "\u001B[34m");
+        }
+
+        ///////////////////////////////////////////////////////testing
 
         // introductions and setting up player personas
         System.out.print("Welcome Stranger..!\nWould you like to read the rules?");
@@ -22,9 +62,10 @@ public class Main {
                     + "\nThe only way you can make your money is employees so be sure to have employees at all times!");
         }
 
-        Chef red = new Chef(inputString("\nEnter Player 1 Red Chef's Name : "), "\u001B[31m");
-
-        Chef blue = new Chef(inputString("\nEnter Player 2 Blue Chef's Name : "), "\u001B[34m");
+        /////////////////////////////////////////////////////////////
+        //Chef red = new Chef(inputString("\nEnter Player 1 Red Chef's Name : "), "\u001B[31m");
+        //Chef blue = new Chef(inputString("\nEnter Player 2 Blue Chef's Name : "), "\u001B[34m");
+        /////////////////////////////////////////////////////////////
 
         // getting the board set up with players on it
         FoodFrenzy board = new FoodFrenzy(red, blue);
@@ -144,12 +185,80 @@ public class Main {
                     System.out.println(blue);
                 } else if (choice == 5) { // Employees Lists
                     System.out.println(current.getList());
-                } else if (choice == 6) { //
+                } else if (choice == 6) { // Save Data and Leave
+                    turn = 100000;
+                    System.out.println("youre in choice 6 successfuly!!!!!!!!!!!!!1");
+
+                //save the chef object
+                //check if the file exists to load things into
+                savePlayer(foodFrenzyFile, red, write, writer);
+                savePlayer(foodFrenzyFile, blue, write, writer);
+                writer.close();
+
+                System.out.println("\nsaving successfuly");
+
+                } else if (choice == 7){ //Wipe Data and Leave
+                    turn = 10000;
                 }
             }
         }
 
         //in the case the game is over and we look for a winner
+
+    }
+
+    public static void readPlayer(String line, Chef player){
+        String[] chefStats = line.split(",");
+        int position =  Integer.parseInt(chefStats[1]);
+        double balance = Double.parseDouble(chefStats[2]);
+        int lapCount = Integer.parseInt(chefStats[3]);
+        double netWorth = Double.parseDouble(chefStats[4]);
+        boolean debt = Boolean.parseBoolean(chefStats[5]);
+        boolean jail = Boolean.parseBoolean(chefStats[6]);
+
+        player = new Chef(chefStats[0], position, balance, lapCount, netWorth, debt, jail, chefStats[7]);
+    }
+
+    public static void readEmployee(String line, Chef player){
+        String[] EmployeeStats = line.split(",");
+        int position = Integer.parseInt(EmployeeStats[0]);
+        int payRate = Integer.parseInt(EmployeeStats[4]);
+        int earnings = Integer.parseInt(EmployeeStats[5]);
+        boolean hired = Boolean.parseBoolean(EmployeeStats[6]);
+        Employee employee = new Employee(position, EmployeeStats[1], EmployeeStats[2], EmployeeStats[3], payRate, earnings, hired);
+        (player.getList()).hire(employee);
+    }
+
+    public static void savePlayer(File file, Chef player, FileWriter write, BufferedWriter writer){
+
+        //making the file because if it does not exist yet
+        if (!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.err.println("Error : " + e.getMessage());
+            }
+        }
+
+        try {
+
+            //get the toWrite variable stream for the Chef player
+            writer.write(player.toWrite());
+            writer.newLine();
+
+            EmployeeList list = player.getList();
+            Employee current = list.getHead();
+
+            //writes the variables into the file
+            while (current != null){
+                writer.write(current.toWrite());
+                writer.newLine();
+                current = current.getNext();
+            }
+
+        } catch (IOException e){
+            System.err.println("Error is : "+ e.getMessage());
+        }
 
     }
 
@@ -159,7 +268,7 @@ public class Main {
 
         int roll = rand.nextInt(6)+1;
 
-        System.out.println(" _______");
+        System.out.println("_______");
 
         if (roll==1){
             System.out.println("|       |"
@@ -331,7 +440,7 @@ public class Main {
         System.out.println("───────────────────────────────");
 
         if (option == 1) {
-            System.out.println("You commited tax fraud! Go To JAIL! You must roll an even number to get out!");
+            System.out.println("You commited tax fraud! Go To JAIL!\nYou must roll an even number to get out!");
             player.setPosition(25);
             player.setJail(true);
         } else if (option == 2 || option == 3) {

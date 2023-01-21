@@ -1,9 +1,11 @@
+import java.io.Serializable;
+
 /* Name : Angela Nguyen
  * ICS4U
  * 2023/01/06
  * This program is the linked queue for the sushi node object
  */
-public class EmployeeList {
+public class EmployeeList  implements Serializable{
     //instance variables
     private Employee head;
     private Employee rear;

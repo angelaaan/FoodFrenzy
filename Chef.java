@@ -19,6 +19,21 @@ public class Chef {
         jail = false;
     }
 
+    public Chef (String Name, int Position, double Balance, int LapCount, double NetWorth, boolean Debt, boolean Jail, String Color){
+        name = Name;
+        position = Position;
+        balance = Balance;
+        lapCount = LapCount;
+        netWorth = NetWorth;
+        debt = Debt;
+        jail = Jail;
+        colourCode = Color;
+    }
+
+    public Chef() {
+
+    }
+
     public double getBalance(){
         return balance;
     }
@@ -83,8 +98,16 @@ public class Chef {
     }
 
     public String toString(){
-        String info = "──────────────────\n"+colourCode+"Name: " + name + "\nPosition on Board: Square #"+position + "\nBalance: "+ balance + "\nNet Worth: "+netWorth
+        String info = "──────────────────\n"+colourCode+"Name: " + name 
+        + "\nPosition on Board: Square #"+position + "\nBalance: "+ balance + "\nNet Worth: "+netWorth
         + "\nEmployee Count: "+list.size()+"\n\u001B[0m──────────────────";
+
+        return info;
+    }
+
+    public String toWrite(){
+        String info =name+","+position+","+balance+","+lapCount+","+netWorth+","
+            +debt+","+jail+","+colourCode;
 
         return info;
     }
