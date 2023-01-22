@@ -14,6 +14,8 @@ public class Main {
         Chef blue = new Chef();
         String line = "";
 
+        printIntroduction();
+
         // introductions and setting up player personas
         System.out.print("WELCOME TO FOOD FRENZY..!\nWould you like to read the rules?");
         int seeRules = yesOrNo();
@@ -271,6 +273,32 @@ public class Main {
         } 
 
         System.out.println("...\ngame over\n...see you soon player...\n...game going to sleep...zzzzzzz");
+    }
+
+    public static void printIntroduction(){
+        Scanner in = new Scanner (System.in);
+
+        System.out.println("YOUR A CHEF!"
+        + "\n    .--,--."
+        +"\n    `.  ,.'"   
+        +"\n     |___|"
+        +"\n     :o o:"  
+        +"\n    _`~^~'"
+        +"\n  /'   ^   `\\");
+        gameFiller("continue when you see the three dots");
+
+        System.out.println("who wants to make a restaurant...");
+        in.nextLine();
+
+        System.out.println("you decided that with the help of third party, growing food-tech companies...");
+        in.nextLine();
+
+        System.out.println("hiring their employees to work for you as well could make you alot of money!!. . .");
+        in.nextLine();
+
+        System.out.println("and with that ..");
+        in.nextLine();
+
     }
 
     public static Chef readPlayer(String line, Chef player) {
