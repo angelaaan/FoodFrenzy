@@ -8,7 +8,7 @@ public class Main {
         Random rand = new Random();
         int turn = 1;
 
-        File foodFrenzyFile = new File("./foodFrenzy.txt");
+        File foodFrenzyFile = new File("foodFrenzy.txt");
 
         Chef red = new Chef();
         Chef blue = new Chef();
@@ -17,16 +17,17 @@ public class Main {
         // introductions and setting up player personas
         System.out.print("WELCOME TO FOOD FRENZY..!\nWould you like to read the rules?");
         int seeRules = yesOrNo();
+
         if (seeRules == 1) {
             System.out.println("The Food Frenzy is a two player business simulation game "
                     + "\nwhere Chef players compete against each other to get the most money after 20 rolls of the dice."
                     + "\nChefs earn money by hiring employees from third-party companies to temporarly work for them"
                     + "\n--> you can do this by landing on an employee square and by paying their PayRate, you can hire them!"
-                    + "\n--> The \"earnings\" in their statistics is how much that employee will make you per board lap"
+                    + "\n--> The \"earnings\" in their statistics is how much that employee will make yodu per board lap"
                     + "\nThe only way you can make your money is employees so be sure to have employees at all times!");
         }
 
-        //if the file exists, ask user if they want to load up the data
+        //if the file exists, ask user if they want to load up the data  
         if (foodFrenzyFile.exists()) {
             FileReader read = new FileReader(foodFrenzyFile);
             BufferedReader reader = new BufferedReader(read);
@@ -53,7 +54,7 @@ public class Main {
                     }
 
                     turn = Integer.parseInt(reader.readLine());
-
+                    
                     reader.close();
                     read.close();
 
@@ -67,7 +68,7 @@ public class Main {
                 foodFrenzyFile.delete();
                 red = new Chef(inputString("\nEnter Player 1 Red Chef's Name : "), "\u001B[31m");
                 blue = new Chef(inputString("\nEnter Player 2 Blue Chef's Name : "), "\u001B[34m");
-                System.out.println();
+
             }
 
         } else { //in the case they dont want to load the data
@@ -80,7 +81,7 @@ public class Main {
         FoodFrenzy board = new FoodFrenzy(red, blue);
 
         // introductions
-        System.out.println("\n\n---KEY---"
+        System.out.println("\n---KEY---"
                 + "\nE - Employee"
                 + "\n? - Chance Card"
                 + "\nThis is what the board looks like! The path starts at 1 ends at 25."
@@ -102,7 +103,7 @@ public class Main {
                 currentName = blue.getName();
             }
             
-            System.out.println("The game is on turn #"+turn+" and there are "+(40-turn)+" turns left.");
+            System.out.println("The game is on turn #"+turn+" and there are "+(20-turn)+" turns left.");
 
             // player turn loop
             while (choice != -1) {
@@ -190,17 +191,24 @@ public class Main {
                     System.out.print(current + "\n");
 
                 } else if (choice == 2) {
-                    //board.printBoard(red, blue);
-                    (current.getList()).sortList();
-                    System.out.println(current.getList());
+                    board.printBoard(red, blue);
 
                 } else if (choice == 3) { // view Red Chef Stats
                     System.out.println(red);
+
                 } else if (choice == 4) { // view Blue Chef Stats
                     System.out.println(blue);
+
                 } else if (choice == 5) { // Employees Lists
                     System.out.println(current.getList());
-                } else if (choice == 6) { // Save Data and Leave
+
+                } else if (choice == 6){
+
+                    (current.getList()).sortList();
+                    System.out.println("Your list is now sorted by the employee with the most earnings to least earnings\n"
+                    +"──────────────────\n"+current.getList());
+
+                } else if (choice == 7) { // Save Data and Leave
 
                     FileWriter write = new FileWriter(foodFrenzyFile);
                     BufferedWriter writer = new BufferedWriter(write);
@@ -217,21 +225,23 @@ public class Main {
                     savePlayer(foodFrenzyFile, blue, write, writer);
                     writer.newLine();
                     writer.write(""+turn);
+
                     writer.close();
+                    write.close();
 
                     System.out.println("\nsaving successfuly");
                     choice = -1;
-                    turn = 22;
+                    turn = 23;
 
-                } else if (choice == 7) { // Wipe Data and Leave
-                    turn = 22;
+                } else if (choice == 8) { // Wipe Data and Leave
+                    turn = 23;
                     choice = -1;
                 }
             }
         }
 
         // in the case the game is over and we look for a winner
-        if (turn!= 45){
+        if (turn>20 && turn <22){
 
             Chef winner;
             Chef loser;
@@ -244,7 +254,7 @@ public class Main {
                 loser = red;
             }
 
-            System.out.println("THE WINNER IS "+ winner.getName() + "WITH "+(winner.getBalance()-loser.getBalance())
+            System.out.println("THE WINNER IS "+ winner.getName() + " WITH "+(winner.getBalance()-loser.getBalance())
             + "$ MORE THAN "+ loser.getName()+"\nHERE IS YOUR TROPHY!! CONGRATULATIONS!");
 
             System.out.println("     ___________"
@@ -258,8 +268,9 @@ public class Main {
             +"\n       _.' '._"
             +"\n      `\"\"\"\"\"\"\"`");
 
-        }
+        } 
 
+        System.out.println("...\ngame over\n...see you soon player...\n...game going to sleep...zzzzzzz");
     }
 
     public static Chef readPlayer(String line, Chef player) {
@@ -414,7 +425,7 @@ public class Main {
     // takes in user decision
     public static int menuChoice(boolean turnCompletion) {
         Scanner in = new Scanner(System.in);
-        String[] MainMenu = { "View Board", "Red Chef Stats", "Blue Chef Stats", "Employees List",
+        String[] MainMenu = { "View Board", "Red Chef Stats", "Blue Chef Stats", "Employees List", "Sort Employees By Earnings",
                 "Save Data and Leave", "Wipe Data and Leave" };
 
         System.out.print("\u001B[33m" + "------------------"
@@ -442,7 +453,7 @@ public class Main {
                 System.out.print("Choice : ");
                 choice = in.nextInt();
 
-                if (choice > 7 || choice < 1) {
+                if (choice > 8 || choice < 1) {
                     choice = 0;
                     throw new InputMismatchException();
                 }

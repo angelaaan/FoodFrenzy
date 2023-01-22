@@ -89,7 +89,9 @@ public class EmployeeList implements Serializable {
 
         if (head == null) {
             return;
+
         } else {
+
             while (current != null) {
                 // Employee index will point to node next to current
                 index = current.getNext();
@@ -108,9 +110,6 @@ public class EmployeeList implements Serializable {
 
                         current.changeDetails(index.getPosition(), index.getName(), index.getCompany(), index.getJob(), index.getPayRate(), index.getEarnings(), index.getHired());
 
-                        System.out.println("current is "+ current);
-                        System.out.println("get next is ----------------" + current.getNext()+"-------------");
-
                         index.changeDetails(tempPosition, tempName, tempCompany, tempJob, tempPay, tempEarn, tempHire);
 
                     }
@@ -121,7 +120,6 @@ public class EmployeeList implements Serializable {
 
                 current = current.getNext();
             }
-
         }
     }
 

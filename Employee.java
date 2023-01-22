@@ -84,7 +84,7 @@ public class Employee extends BoardSquare  implements Serializable {
 
     @Override
     public String toString() {
-        return ("──────────────────\n\u001B[35mNAME : "+name+"\nJOB : "+job+"\nCOMPANY : "+companyName+"\nPAY RATE : "+payRate+"\nSALARY: "
+        return ("──────────────────\n\u001B[35mNAME : "+name+"\nJOB : "+job+"\nCOMPANY : "+companyName+"\nPAY RATE : "+payRate+"\nEARNINGS : "
             +earnings+"\nHIRED : "+hired+"\n\u001B[0m──────────────────");
     }
 
