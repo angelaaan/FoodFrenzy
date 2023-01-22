@@ -100,7 +100,7 @@ public class Chef {
     public String toString(){
 
         String info = "──────────────────\n"+colourCode+"Name: " + name 
-        + "\nPosition on Board: Square #"+position + "\nBalance: "+ balance + "\nNet Worth: "+netWorth
+        + "\nPosition: Square #"+position + "\nBalance: "+ balance + "\nNet Worth: "+netWorth
         + "\nEmployee Count: "+list.size()+"\nLaps: "+lapCount+"\n\u001B[0m──────────────────";
 
         return info;

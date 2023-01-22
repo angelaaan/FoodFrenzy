@@ -83,11 +83,11 @@ public class Main {
         FoodFrenzy board = new FoodFrenzy(red, blue);
 
         // introductions
-        System.out.println("\n---KEY---"
-                + "\nE - Employee"
-                + "\n? - Chance Card"
+        System.out.println("\n"+"\u001b[35m"+"---KEY---"
+                + "\nE - Employee Card"
+                + "\n? - Chance Card\u001b[0m"
                 + "\nThis is what the board looks like! The path starts at 1 ends at 25."
-                + "\nYour position will be marked by your colours. After 40 rolls, chef with the most networth WINS! MAY THE BEST BUSINESS MAN WIN!!");
+                + "\nYour position will be marked by your colours. After 20 rolls, \nchef with the most networth WINS! MAY THE BEST BUSINESS MAN WIN!!");
         board.printBoard(red, blue);
 
         // entire game loop
@@ -258,8 +258,8 @@ public class Main {
             }
 
             System.out
-                    .println("THE WINNER IS " + winner.getName() + " WITH " + (winner.getBalance() - loser.getBalance())
-                            + "$ MORE THAN " + loser.getName() + "\nHERE IS YOUR TROPHY!! CONGRATULATIONS!");
+                    .println("THE WINNER IS " + (winner.getName()).toUpperCase() + " WITH " + (winner.getBalance() - loser.getBalance())
+                            + "$ MORE THAN " + (loser.getName()).toUpperCase() + "\nHERE IS YOUR TROPHY!! CONGRATULATIONS!");
 
             System.out.println("     ___________"
                     + "\n    '._==_==_=_.'"
@@ -274,7 +274,8 @@ public class Main {
 
         }
 
-        System.out.println("...\ngame over\n...see you soon player...\n...game going to sleep...zzzzzzz");
+
+        System.out.println("...\ngame over\n...\nsee you soon player\n...(_ _ \")zzz\n...game going to sleep\n...\nzzzzzzz");
     }
 
     public static void printIntroduction() {
@@ -558,7 +559,7 @@ public class Main {
     // chance card that occurs only if the player has less than 1 employees
     public static void chanceCard(Chef player, int option, EmployeeList list) {
         Random rand = new Random();
-        // option = 1;
+        option = 2;
 
         System.out.println("───────────────────────────────");
 
@@ -567,21 +568,20 @@ public class Main {
             player.setPosition(25);
             player.setJail(true);
         } else if (option == 2 || option == 3) {
-            System.out.println("You have to fire your oldest employee :(");
+            System.out.println("You have to fire your oldest \nemployee :(");
             try {
                 list.fire();
                 player.setList(list);
             } catch (Exception e) {
-                e.printStackTrace();
             }
-        } else if (option == 4 || option == 5 || option == 6 || option == 7 || option == 8) {
+        } else if (option == 4 || option == 5 || option == 6 || option == 7 ) {
             System.out.println("It's time to pay your employees!");
 
             // set the balance as the iniitial balance minus the payroll you have to pay all
             // the employees
             payEmployees(player, list);
 
-        } else if (option == 9) {
+        } else if (option==8 || option == 9) {
 
             payPlayer(player, list);
             System.out.println("EXTRA PAY DAY! YOU TOOK YOUR EMPLOYEES EARNINGS TODAY!!");
@@ -635,7 +635,7 @@ public class Main {
             // if able to, allow chef player the option to hire
         } else {
             System.out.print("Looks like this employee is available for you to hire! Would you like to hire them?"
-                    + "\nYou pay this employee " + ((Employee) square).getPayRate() + " but they make you "
+                    + "\nYou pay this employee $" + ((Employee) square).getPayRate() + " but they make you $"
                     + ((Employee) square).getEarnings());
             option = yesOrNo();
 
