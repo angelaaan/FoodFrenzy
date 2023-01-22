@@ -29,7 +29,7 @@ public class Main {
                     + "\nThe only way you can make your money is employees so be sure to have employees at all times!");
         }
 
-        //if the file exists, ask user if they want to load up the data  
+        // if the file exists, ask user if they want to load up the data
         if (foodFrenzyFile.exists()) {
             FileReader read = new FileReader(foodFrenzyFile);
             BufferedReader reader = new BufferedReader(read);
@@ -39,7 +39,7 @@ public class Main {
 
             line = inputString("Would you like to load up the game data? (Y/N)\n");
 
-            //if the user chooses to load game data
+            // if the user chooses to load game data
             if (line.startsWith("y") || line.startsWith("Y")) {
                 try {
 
@@ -56,7 +56,7 @@ public class Main {
                     }
 
                     turn = Integer.parseInt(reader.readLine());
-                    
+
                     reader.close();
                     read.close();
 
@@ -73,7 +73,7 @@ public class Main {
 
             }
 
-        } else { //in the case they dont want to load the data
+        } else { // in the case they dont want to load the data
             red = new Chef(inputString("\nEnter Player 1 Red Chef's Name : "), "\u001B[31m");
             blue = new Chef(inputString("\nEnter Player 2 Blue Chef's Name : "), "\u001B[34m");
             System.out.println();
@@ -104,8 +104,8 @@ public class Main {
                 current = blue;
                 currentName = blue.getName();
             }
-            
-            System.out.println("The game is on turn #"+turn+" and there are "+(20-turn)+" turns left.");
+
+            System.out.println("The game is on turn #" + turn + " and there are " + (20 - turn) + " turns left.");
 
             // player turn loop
             while (choice != -1) {
@@ -204,11 +204,12 @@ public class Main {
                 } else if (choice == 5) { // Employees Lists
                     System.out.println(current.getList());
 
-                } else if (choice == 6){
+                } else if (choice == 6) {
 
                     (current.getList()).sortList();
-                    System.out.println("Your list is now sorted by the employee with the most earnings to least earnings\n"
-                    +"──────────────────\n"+current.getList());
+                    System.out.println(
+                            "Your list is now sorted by the employee with the most earnings to least earnings\n"
+                                    + "──────────────────\n" + current.getList());
 
                 } else if (choice == 7) { // Save Data and Leave
 
@@ -226,7 +227,7 @@ public class Main {
                     savePlayer(foodFrenzyFile, red, write, writer);
                     savePlayer(foodFrenzyFile, blue, write, writer);
                     writer.newLine();
-                    writer.write(""+turn);
+                    writer.write("" + turn);
 
                     writer.close();
                     write.close();
@@ -243,12 +244,12 @@ public class Main {
         }
 
         // in the case the game is over and we look for a winner
-        if (turn>20 && turn <22){
+        if (turn > 20 && turn < 22) {
 
             Chef winner;
             Chef loser;
 
-            if (red.getBalance() > blue.getBalance()){
+            if (red.getBalance() > blue.getBalance()) {
                 winner = red;
                 loser = blue;
             } else {
@@ -256,44 +257,66 @@ public class Main {
                 loser = red;
             }
 
-            System.out.println("THE WINNER IS "+ winner.getName() + " WITH "+(winner.getBalance()-loser.getBalance())
-            + "$ MORE THAN "+ loser.getName()+"\nHERE IS YOUR TROPHY!! CONGRATULATIONS!");
+            System.out
+                    .println("THE WINNER IS " + winner.getName() + " WITH " + (winner.getBalance() - loser.getBalance())
+                            + "$ MORE THAN " + loser.getName() + "\nHERE IS YOUR TROPHY!! CONGRATULATIONS!");
 
             System.out.println("     ___________"
-            +"\n    '._==_==_=_.'"
-            +"\n    .-\\:      /-."
-            +"\n   | (|:.     |) |"
-            +"\n    '-|:. "+(winner.getName()).substring(0,1)+"   |-'"
-            +"\n      \\::.    /"
-            +"\n       '::. .'"
-            +"\n         ) ("
-            +"\n       _.' '._"
-            +"\n      `\"\"\"\"\"\"\"`");
+                    + "\n    '._==_==_=_.'"
+                    + "\n    .-\\:      /-."
+                    + "\n   | (|:.     |) |"
+                    + "\n    '-|:. " + (winner.getName()).substring(0, 1) + "   |-'"
+                    + "\n      \\::.    /"
+                    + "\n       '::. .'"
+                    + "\n         ) ("
+                    + "\n       _.' '._"
+                    + "\n      `\"\"\"\"\"\"\"`");
 
-        } 
+        }
 
         System.out.println("...\ngame over\n...see you soon player...\n...game going to sleep...zzzzzzz");
     }
 
-    public static void printIntroduction(){
-        Scanner in = new Scanner (System.in);
+    public static void printIntroduction() {
+        Scanner in = new Scanner(System.in);
 
         System.out.println("YOUR A CHEF!"
-        + "\n    .--,--."
-        +"\n    `.  ,.'"   
-        +"\n     |___|"
-        +"\n     :o o:"  
-        +"\n    _`~^~'"
-        +"\n  /'   ^   `\\");
+                + "\n    .--,--."
+                + "\n    `.  ,.'"
+                + "\n     |___|"
+                + "\n     :o o:"
+                + "\n    _`~^~'"
+                + "\n  /'   ^   `\\");
         gameFiller("continue when you see the three dots");
 
-        System.out.println("who wants to make a restaurant...");
+        System.out.println("who wants to make a restaurant..."
+                + "\n        ("
+                + "\n            )"
+                + "\n       __..---..__"
+                + "\n   ,-='  /  |  \\  `=-."
+                + "\n  :--..___________..--;"
+                + "\n   \\.,_____________,./");
         in.nextLine();
 
-        System.out.println("you decided that with the help of third party, growing food-tech companies...");
+        System.out.println("you decided that with the help of third party, growing food-tech companies..."
+        +"\n     ___"
++"\n    |[_]|"
++"\n    |+ ;|"
++"\n    `---'");
         in.nextLine();
 
-        System.out.println("hiring their employees to work for you as well could make you alot of money!!. . .");
+        System.out.println("hiring their employees to work for you as well could make you alot of money!!. . ."
+        + "\n\n       \\`\\/\\/\\/`/"
+        +"\n        )======("
+        +"\n      .'        '."
+        +"\n     /    _||__   \\"
+        +"\n    /    (_||_     \\"
+        +"\n   |     __||_)     |"
+        +"\n   |       ||       |"
+        +"\n   '.              .'"
+        +"\n     '------------'"   );
+
+     
         in.nextLine();
 
         System.out.println("and with that ..");
@@ -453,7 +476,8 @@ public class Main {
     // takes in user decision
     public static int menuChoice(boolean turnCompletion) {
         Scanner in = new Scanner(System.in);
-        String[] MainMenu = { "View Board", "Red Chef Stats", "Blue Chef Stats", "Employees List", "Sort Employees By Earnings",
+        String[] MainMenu = { "View Board", "Red Chef Stats", "Blue Chef Stats", "Employees List",
+                "Sort Employees By Earnings",
                 "Save Data and Leave", "Wipe Data and Leave" };
 
         System.out.print("\u001B[33m" + "------------------"
@@ -595,13 +619,13 @@ public class Main {
 
         // check if employee is already hired or not
         if (((Employee) square).getHired() == true) {
-            
-            if (currentEmployeeList.search(currentEmployeeList.getHead(), ((Employee)square).getName())){
+
+            if (currentEmployeeList.search(currentEmployeeList.getHead(), ((Employee) square).getName())) {
                 System.out.println("Looks like this employee is already on your team! Hehe");
             } else {
-                System.out.println("Looks like this employee is already hired! It's okay surely you can hire another one..");
+                System.out.println(
+                        "Looks like this employee is already hired! It's okay surely you can hire another one..");
             }
-
 
             // check if employee's pay rate is not in the chef's balance range
         } else if ((((Employee) square).getPayRate()) > current.getBalance()) {
