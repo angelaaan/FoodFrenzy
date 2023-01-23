@@ -632,7 +632,7 @@ public class Main {
                 tempBalance = player.getBalance();
             }
 
-            double donation = rand.nextDouble(tempBalance / 2) + 1;
+            int donation = rand.nextInt((int)tempBalance / 2) + 1;
             player.setBalance(player.getBalance() - donation);
             System.out.println("YOU DECIDED TO DONATE TO SICK KIDS WOWWW! THANK YOU FOR YOUR DONATION OF $" + donation
                     + "!Thank you for your kindness <3");
