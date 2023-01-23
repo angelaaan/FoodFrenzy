@@ -14,6 +14,7 @@ public class Main {
         Chef blue = new Chef();
         String line = "";
 
+        printTitle();
         printIntroduction();
 
         // introductions and setting up player personas
@@ -281,6 +282,18 @@ public class Main {
         gameFiller("let game go to sleep");
         System.out.println("...(_ _ \")zzz\n...game going to sleep\n...\nzzzzzzz");
     }
+
+    public static void printTitle(){
+        System.out.println("\n         _______  _______  _______  ______     _______  ______    _______  __    _  _______  __   __ "
+        +"\n        |       ||       ||       ||      |   |       ||    _ |  |       ||  |  | ||       ||  | |  |"
+        +"\n        |    ___||   _   ||   _   ||  _    |  |    ___||   | ||  |    ___||   |_| ||____   ||  |_|  |"
+        +"\n        |   |___ |  | |  ||  | |  || | |   |  |   |___ |   |_||_ |   |___ |       | ____|  ||       |"
+        +"\n        |    ___||  |_|  ||  |_|  || |_|   |  |    ___||    __  ||    ___||  _    || ______||_     _|"
+        +"\n        |   |    |       ||       ||       |  |   |    |   |  | ||   |___ | | |   || |_____   |   |  "
+        +"\n        |___|    |_______||_______||______|   |___|    |___|  |_||_______||_|  |__||_______|  |___|\n\n");
+        gameFiller("to start!");
+    }
+
 
     /*
      * Just print outs an introduction
