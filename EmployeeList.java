@@ -1,7 +1,7 @@
 /* Name : Angela Nguyen
  * ICS4U
  * 2023/01/06
- * This program is the linked queue for the sushi node object
+ * This program is the linked queue for the Employee node object
  */
 public class EmployeeList {
     // instance variables
@@ -79,7 +79,7 @@ public class EmployeeList {
      */
     public void sortList() {
 
-        // Sushi current will point to head
+        // Employee current will point to head
         EmployeeCard current = head;
         EmployeeCard index = null;
         EmployeeCard temp;
@@ -169,8 +169,8 @@ public class EmployeeList {
     }
 
     /*
-     * returns a toString reprsentation of the entire queue of sushi
-     * without the images and only with the sushi informations
+     * returns a toString reprsentation of the entire queue of Employee
+     * without the images and only with the Employee informations
      */
     public String toString() {
         if (isEmpty()) {

@@ -9,6 +9,7 @@ public class Chef {
     String colourCode;
     EmployeeList list = new EmployeeList();
     
+    //constructor
     public Chef(String Name, String color){
         name = Name;
         balance = 2000;
@@ -19,6 +20,7 @@ public class Chef {
         jail = false;
     }
 
+    //constructor that can set up all the instance variables excluding the next variable
     public Chef (String Name, int Position, double Balance, int LapCount, double NetWorth, boolean Debt, boolean Jail, String Color){
         name = Name;
         position = Position;
@@ -30,10 +32,12 @@ public class Chef {
         colourCode = Color;
     }
 
+    //empty constructor
     public Chef() {
-
+        name = "";
     }
 
+    //accessor methods
     public double getBalance(){
         return balance;
     }
@@ -62,6 +66,7 @@ public class Chef {
         return jail;
     }
 
+    //mutator methods
     public void setJail(boolean status){
         jail = status;
     }
@@ -89,14 +94,17 @@ public class Chef {
         list = newList;
     }
 
+    //increasing the amount of laps for that player
     public void lapCompleted(){
         lapCount++;
     }
 
+    //checking for debt
     public boolean checkDebt(){
         return debt;
     }
 
+    //override the original string method
     public String toString(){
 
         String info = "──────────────────\n"+colourCode+"Name: " + name 
@@ -106,6 +114,7 @@ public class Chef {
         return info;
     }
 
+    //method to return a comma-seperated format version of the information
     public String toWrite(){
         String info =name+","+position+","+balance+","+lapCount+","+netWorth+","
             +debt+","+jail+","+colourCode;

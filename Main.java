@@ -282,6 +282,9 @@ public class Main {
         System.out.println("...(_ _ \")zzz\n...game going to sleep\n...\nzzzzzzz");
     }
 
+    /*
+     * Just print outs an introduction
+     */
     public static void printIntroduction() {
         Scanner in = new Scanner(System.in);
 
@@ -329,6 +332,7 @@ public class Main {
 
     }
 
+    //reads from a String line and stores it in a player
     public static Chef readPlayer(String line, Chef player) {
         String[] chefStats = line.split(",");
         int position = Integer.parseInt(chefStats[1]);
@@ -342,8 +346,11 @@ public class Main {
         return player;
     }
 
+    //reads from a String line and stores it in an Employee
     public static void readEmployee(String line, Chef player) {
         String[] EmployeeStats = line.split(",");
+
+        //parses everything into the objects
         int position = Integer.parseInt(EmployeeStats[0]);
         int payRate = Integer.parseInt(EmployeeStats[4]);
         int earnings = Integer.parseInt(EmployeeStats[5]);
@@ -354,6 +361,7 @@ public class Main {
         (player.getList()).hire(employee);
     }
 
+    //saves the player data including the linked list
     public static void savePlayer(File file, Chef player, FileWriter write, BufferedWriter writer) {
 
         // making the file because if it does not exist yet
@@ -387,6 +395,7 @@ public class Main {
 
     }
 
+    //rolls and prints out the dice. also returns the number
     public static int rollDice() {
 
         Random rand = new Random();
@@ -426,6 +435,7 @@ public class Main {
         return roll;
     }
 
+    //intakes number input
     public static int yesOrNo() {
         Scanner in = new Scanner(System.in);
         boolean error = false;
@@ -453,6 +463,7 @@ public class Main {
 
     }
 
+    //intakes a String and returns it
     public static String inputString(String prompt) {
         Scanner in = new Scanner(System.in);
         boolean error = false;
@@ -533,6 +544,7 @@ public class Main {
         return choice;
     }
 
+    //changes player positions and keeps track of the lap count
     public static void changePlayerPosition(Chef player, int num) {
         int newPosition = player.getPosition() + num;
 
@@ -550,12 +562,14 @@ public class Main {
         player.setPosition(newPosition);
     }
 
+    //calculates and pays Employees
     public static void payEmployees(Chef player, EmployeeList list) {
         player.setBalance((player.getBalance()) - list.calculatePayRoll());
         System.out
                 .println("$" + list.calculatePayRoll() + " was taken out of Chef " + player.getName() + "'s balance!");
     }
 
+    //pays the Player using the method from the object
     public static void payPlayer(Chef player, EmployeeList list) {
         player.setBalance(player.getBalance() + list.calculateEarnings());
         System.out.println(list.calculateEarnings() + " was added to Chef " + player.getName() + "'s balance!");
@@ -611,6 +625,7 @@ public class Main {
 
     }
 
+    //Views the employee card and runs the actions for if they landed on an Employee square
     public static void employeeCard(Chef current, BoardSquare square, EmployeeList currentEmployeeList) {
 
         Scanner in = new Scanner(System.in);
@@ -667,6 +682,7 @@ public class Main {
         }
     }
 
+    //A game filler to avoid long chunky blocks of text
     public static void gameFiller(String action) {
         Scanner in = new Scanner(System.in);
         System.out.println("\n[ Hit ENTER to " + action + " ]");

@@ -15,8 +15,17 @@ public class FoodFrenzy {
         {" -?- "," -E- "," -E- "," -?- "," -E- "," -E- "," -?- "}  //ROW 6
     };
     BoardSquare[] playBoard = new BoardSquare[25];
+    
+    //construcotr
+    public FoodFrenzy(Chef P1, Chef P2){
+        position1r = getRow(P1.getPosition());
+        position1c = getColoumn(P1.getPosition());
+        position2r = getRow(P2.getPosition());
+        position2c= getColoumn(P2.getPosition());
+        readFileToFill();
+    }
 
-    //move this method down later
+    //method to fill the playBoard from a file
     public void readFileToFill(){
 
         String file = "EmployeeBoard.txt";
@@ -57,15 +66,8 @@ public class FoodFrenzy {
         playBoard[24] = new JailSquare(24);
 
     }
-    
-    public FoodFrenzy(Chef P1, Chef P2){
-        position1r = getRow(P1.getPosition());
-        position1c = getColoumn(P1.getPosition());
-        position2r = getRow(P2.getPosition());
-        position2c= getColoumn(P2.getPosition());
-        readFileToFill();
-    }
 
+    //calcualtes the row from the player position
     public int getRow(int position){
 
         int potentialPositionA = 8;
@@ -90,6 +92,7 @@ public class FoodFrenzy {
 
     }
 
+    //calculates the coloumn from the player position
     public int getColoumn(int position){
 
         int potentialPositionA = 2;
@@ -114,6 +117,7 @@ public class FoodFrenzy {
 
     }
 
+    //prints out the board with colours to indicate players
     public void printBoard(Chef P1, Chef P2){
         position1r = getRow(P1.getPosition());
         position1c = getColoumn(P1.getPosition());
@@ -153,7 +157,7 @@ public class FoodFrenzy {
 
     }
 
-    //maybe delete later?
+    //updates player position with every move
     public void positionUpdate(Chef P, int turn){
         if (turn%2==1){//if the number is odd, player 1's(red) turn
             position1r = getRow(P.getPosition());
@@ -164,6 +168,7 @@ public class FoodFrenzy {
         }
     }
     
+    //checks is player is in the same position
     public boolean samePosition(){
         if ((position1r == position2r) && (position1c == position2c)){
             return true;
@@ -172,6 +177,7 @@ public class FoodFrenzy {
         }
     }
 
+    //returns the boardSquare that the player is on
     public BoardSquare getSquare(Chef player){
 
         Scanner in = new Scanner (System.in);
@@ -181,6 +187,7 @@ public class FoodFrenzy {
 
     } 
 
+    //pritns out 2d Arrays
     public void print2D(String arr[][]){
         // Loop through all rows
         for (int i = 0; i < arr.length; i++)
@@ -190,6 +197,7 @@ public class FoodFrenzy {
                 System.out.print(arr[i][j] + " ");
     }
 
+    //prints normal arrays
     public void printArr(String arr[]){
         for (int i = 0 ; i<arr.length ; i++){
             System.out.print(arr[i] + " ");
