@@ -42,7 +42,7 @@ public class FoodFrenzy {
                     i++;
                 }
                 
-                playBoard[i] = new Employee(Integer.parseInt(data[0]),data[1], data[2], data[3],Integer.parseInt(data[4]), Integer.parseInt(data[5]));
+                playBoard[i] = new EmployeeCard(Integer.parseInt(data[0]),data[1], data[2], data[3],Integer.parseInt(data[4]), Integer.parseInt(data[5]));
 
                 for (int j = 0 ; j > 6 ; j++){
                     data[j]=null;

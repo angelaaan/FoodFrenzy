@@ -11,7 +11,7 @@ public class Chef {
     
     public Chef(String Name, String color){
         name = Name;
-        balance = 6000;
+        balance = 2000;
         position = 1;
         lapCount = 0;
         colourCode = color;

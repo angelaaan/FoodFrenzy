@@ -25,7 +25,7 @@ public class Main {
                     + "\nwhere Chef players compete against each other to get the most money after 20 rolls of the dice."
                     + "\nChefs earn money by hiring employees from third-party companies to temporarly work for them"
                     + "\n--> you can do this by landing on an employee square and by paying their PayRate, you can hire them!"
-                    + "\n--> The \"earnings\" in their statistics is how much that employee will make yodu per board lap"
+                    + "\n--> The \"earnings\" in their statistics is how much that employee will make you per board lap"
                     + "\nThe only way you can make your money is employees so be sure to have employees at all times!");
         }
 
@@ -67,11 +67,11 @@ public class Main {
                     System.err.println("Error: " + e.getMessage());
                 }
             } else {
-                foodFrenzyFile.delete();
                 red = new Chef(inputString("\nEnter Player 1 Red Chef's Name : "), "\u001B[31m");
                 blue = new Chef(inputString("\nEnter Player 2 Blue Chef's Name : "), "\u001B[34m");
 
             }
+            foodFrenzyFile.delete();
 
         } else { // in the case they dont want to load the data
             red = new Chef(inputString("\nEnter Player 1 Red Chef's Name : "), "\u001B[31m");
@@ -275,7 +275,11 @@ public class Main {
         }
 
 
-        System.out.println("...\ngame over\n...\nsee you soon player\n...(_ _ \")zzz\n...game going to sleep\n...\nzzzzzzz");
+        System.out.println("...\ngame over\n...");
+        gameFiller("say goodbye");
+        System.out.println("\ngoodbye see you soon player\n");
+        gameFiller("let game go to sleep");
+        System.out.println("...(_ _ \")zzz\n...game going to sleep\n...\nzzzzzzz");
     }
 
     public static void printIntroduction() {
@@ -345,7 +349,7 @@ public class Main {
         int earnings = Integer.parseInt(EmployeeStats[5]);
         EmployeeStats[6] = EmployeeStats[6].substring(0, EmployeeStats[6].length() - 1);
         boolean hired = Boolean.parseBoolean(EmployeeStats[6]);
-        Employee employee = new Employee(position, EmployeeStats[1], EmployeeStats[2], EmployeeStats[3], payRate,
+        EmployeeCard employee = new EmployeeCard(position, EmployeeStats[1], EmployeeStats[2], EmployeeStats[3], payRate,
                 earnings, hired);
         (player.getList()).hire(employee);
     }
@@ -368,7 +372,7 @@ public class Main {
             writer.newLine();
 
             EmployeeList list = player.getList();
-            Employee current = list.getHead();
+            EmployeeCard current = list.getHead();
 
             // writes the variables into the file
             while (current != null) {
@@ -428,6 +432,7 @@ public class Main {
         int choice = 0;
 
         do {
+            
             error = false;
             try {
                 System.out.println("\n[1] - yes\n[2] - no\nCHOICE: ");
@@ -559,7 +564,7 @@ public class Main {
     // chance card that occurs only if the player has less than 1 employees
     public static void chanceCard(Chef player, int option, EmployeeList list) {
         Random rand = new Random();
-        option = 2;
+        option = 1;
 
         System.out.println("───────────────────────────────");
 
@@ -618,9 +623,9 @@ public class Main {
         System.out.println("----------------\n" + square + "\n----------------");
 
         // check if employee is already hired or not
-        if (((Employee) square).getHired() == true) {
+        if (((EmployeeCard) square).getHired() == true) {
 
-            if (currentEmployeeList.search(currentEmployeeList.getHead(), ((Employee) square).getName())) {
+            if (currentEmployeeList.search(currentEmployeeList.getHead(), ((EmployeeCard) square).getName())) {
                 System.out.println("Looks like this employee is already on your team! Hehe");
             } else {
                 System.out.println(
@@ -628,15 +633,15 @@ public class Main {
             }
 
             // check if employee's pay rate is not in the chef's balance range
-        } else if ((((Employee) square).getPayRate()) > current.getBalance()) {
+        } else if ((((EmployeeCard) square).getPayRate()) > current.getBalance()) {
             System.out.println(
                     "Looks like this employee is availabe for hire but you do not have the funds to hire this employee");
 
             // if able to, allow chef player the option to hire
         } else {
             System.out.print("Looks like this employee is available for you to hire! Would you like to hire them?"
-                    + "\nYou pay this employee $" + ((Employee) square).getPayRate() + " but they make you $"
-                    + ((Employee) square).getEarnings());
+                    + "\nYou pay this employee $" + ((EmployeeCard) square).getPayRate() + " but they make you $"
+                    + ((EmployeeCard) square).getEarnings());
             option = yesOrNo();
 
             // change the hire status for that employee and add them to the Employee list of
@@ -644,17 +649,17 @@ public class Main {
             if (option == 1) {
 
                 // change the state of hire
-                ((Employee) square).setHire(true);
+                ((EmployeeCard) square).setHire(true);
 
                 // charge the player for hiring
-                current.setBalance(current.getBalance() - (((Employee) square).getPayRate()));
+                current.setBalance(current.getBalance() - (((EmployeeCard) square).getPayRate()));
 
                 // add the employee to the linked list
-                currentEmployeeList.hire((Employee) square);
+                currentEmployeeList.hire((EmployeeCard) square);
                 current.setList(currentEmployeeList);
 
-                System.out.println("Player hired! Welcome " + ((Employee) square).getName() + " to your team as a "
-                        + ((Employee) square).getJob() + "!");
+                System.out.println("Player hired! Welcome " + ((EmployeeCard) square).getName() + " to your team as a "
+                        + ((EmployeeCard) square).getJob() + "!");
 
             } else {
                 System.out.println("What a passed opportunity..");

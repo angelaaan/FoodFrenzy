@@ -1,22 +1,22 @@
 import java.io.Serializable;
 
-public class Employee extends BoardSquare  implements Serializable {
+public class EmployeeCard extends BoardSquare  implements Serializable {
     String name;
     String companyName;
     String job;
     int payRate;
     int earnings;
     boolean hired;
-    Employee next;
+    EmployeeCard next;
 
     //empty constructor employee node
-    public Employee(int a){
+    public EmployeeCard(int a){
         super(a, "Employee");
         type = "Employee";
     }
 
     //filled employee node
-    public Employee(int boardPosition, String position, String Name, String company, int pay, int daily){
+    public EmployeeCard(int boardPosition, String position, String Name, String company, int pay, int daily){
         super(boardPosition, "Employee");
         job = position;
         name = Name;
@@ -27,7 +27,7 @@ public class Employee extends BoardSquare  implements Serializable {
         next = null;
     }
 
-    public Employee (int boardPosition, String n, String company, String Job, int Pay, int Earn, boolean Hire){
+    public EmployeeCard (int boardPosition, String n, String company, String Job, int Pay, int Earn, boolean Hire){
         super(boardPosition, "Employee");
         name = n;
         companyName = company;
@@ -37,7 +37,7 @@ public class Employee extends BoardSquare  implements Serializable {
         hired = Hire;
     }
 
-    public Employee (int boardPosition, String n, String company, String Job, int Pay, int Earn, boolean Hire, Employee newNext){
+    public EmployeeCard (int boardPosition, String n, String company, String Job, int Pay, int Earn, boolean Hire, EmployeeCard newNext){
         super(boardPosition, "Employee");
         name = n;
         companyName = company;
@@ -66,7 +66,7 @@ public class Employee extends BoardSquare  implements Serializable {
         return hired;
     }
     
-    public Employee getNext(){
+    public EmployeeCard getNext(){
         return next;
     }
 
@@ -93,7 +93,7 @@ public class Employee extends BoardSquare  implements Serializable {
         return type;
     }
 
-    public void setNext(Employee node) {
+    public void setNext(EmployeeCard node) {
         next = node;
     }
 

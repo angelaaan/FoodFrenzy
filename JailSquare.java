@@ -10,7 +10,7 @@ public class JailSquare extends BoardSquare {
 
     @Override
     public String toString() {
-        String info = "You are in JAIL! You gotta roll a even numer :/";
+        String info = "You are in JAIL! You gotta roll a even number :/";
         return info;
     }
 

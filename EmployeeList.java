@@ -1,14 +1,12 @@
-import java.io.Serializable;
-
 /* Name : Angela Nguyen
  * ICS4U
  * 2023/01/06
  * This program is the linked queue for the sushi node object
  */
-public class EmployeeList implements Serializable {
+public class EmployeeList {
     // instance variables
-    private Employee head;
-    private Employee rear;
+    private EmployeeCard head;
+    private EmployeeCard rear;
     private int size;
 
     // Creates an empty queue.
@@ -18,7 +16,7 @@ public class EmployeeList implements Serializable {
     }
 
     // Adds the specified data to the rear of the queue. The enQueue method
-    public void hire(Employee node) {
+    public void hire(EmployeeCard node) {
 
         if (isEmpty()) {
             head = node;
@@ -30,8 +28,8 @@ public class EmployeeList implements Serializable {
     }
 
     public double calculatePayRoll() {
-        Employee currentEmployee = head;
-        double total = 0.0;
+        EmployeeCard currentEmployee = head;
+        double total = 0;
 
         while (currentEmployee != null) {
             total += currentEmployee.getPayRate();
@@ -42,7 +40,7 @@ public class EmployeeList implements Serializable {
     }
 
     public double calculateEarnings() {
-        Employee currentEmployee = head;
+        EmployeeCard currentEmployee = head;
         double total = 0;
 
         while (currentEmployee != null) {
@@ -77,15 +75,14 @@ public class EmployeeList implements Serializable {
     }
 
     /*
-     * Sorting the list by prices using bubble sort
-     * may just be the worst sort list uve ever seen in ur entire life who knows...
+     * Sorting the list by employee earnings using bubble sort
      */
     public void sortList() {
 
         // Sushi current will point to head
-        Employee current = head;
-        Employee index = null;
-        Employee temp;
+        EmployeeCard current = head;
+        EmployeeCard index = null;
+        EmployeeCard temp;
 
         if (head == null) {
             return;
@@ -98,7 +95,7 @@ public class EmployeeList implements Serializable {
 
                 while (index != null) {
 
-                    if (current.getEarnings() < index.getEarnings()) {
+                    if (current.getEarnings() > index.getEarnings()) {
 
                         int tempPosition = current.getPosition();
                         String tempName = current.getName();
@@ -126,7 +123,7 @@ public class EmployeeList implements Serializable {
     /*
      * Returns the head of the list in the Employee list
      */
-    public Employee getHead() {
+    public EmployeeCard getHead() {
         return head;
     }
 
@@ -156,18 +153,18 @@ public class EmployeeList implements Serializable {
      * Searches through the linked list for a name and returns whether or not its
      * true
      */
-    public boolean search(Employee head, String name) {
+    public boolean search(EmployeeCard head, String name) {
         // Base case
         if (head == null) {
             return false;
         }
 
         // If key is present in current Employee node, return true
-        if ((head.getName()).equalsIgnoreCase(name)) {
+        else if ((head.getName()).equalsIgnoreCase(name)) {
             return true;
         }
 
-        // Recur through the remaining linked list
+        // Recursively go through the remaining linked list
         return search(head.getNext(), name);
     }
 
@@ -182,7 +179,7 @@ public class EmployeeList implements Serializable {
 
         // Declare and initialize variables
         String info = "";
-        Employee current = head;
+        EmployeeCard current = head;
         int i = 1;
 
         // go through the linked lists and fills a string with information
