@@ -31,11 +31,14 @@ public class Main {
         }
 
         // if the file exists, ask user if they want to load up the data
-        if (foodFrenzyFile.exists()) {
-            FileReader read = new FileReader(foodFrenzyFile);
-            BufferedReader reader = new BufferedReader(read);
 
-            System.out.println("\nGame Data For Players \u001B[31m" + reader.readLine() + "\u001B[0m and \u001B[34m"
+        FileReader read = new FileReader(foodFrenzyFile);
+        BufferedReader reader = new BufferedReader(read);
+
+        line = reader.readLine();
+
+        if (foodFrenzyFile.exists() && line!= null) {
+            System.out.println("\nGame Data For Players \u001B[31m" + line + "\u001B[0m and \u001B[34m"
                     + reader.readLine() + "\u001B[0m available!");
 
             line = inputString("Would you like to load up the game data? (Y/N)\n");
