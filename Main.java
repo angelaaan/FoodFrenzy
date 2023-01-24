@@ -104,7 +104,7 @@ public class Main {
         board.printBoard(red, blue);
 
         // entire game loop
-        while (turn < 21) {
+        while (turn < 20) {
             int choice = 0;
             boolean turnCompletion = false;
 
