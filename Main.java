@@ -1,5 +1,9 @@
+/* Angela Nguyen
+ * ICS4U Final Project
+ * Semester 1 Jan 2023
+ * This code is the main class for the FoodFrenzy Program
+ */
 import java.util.*;
-import javax.sql.rowset.spi.SyncResolver;
 import java.io.*;
 
 public class Main {
@@ -23,15 +27,15 @@ public class Main {
 
         if (seeRules == 1) {
             System.out.println("The Food Frenzy is a two player business simulation game "
-                    + "\nwhere Chef players compete against each other to get the most money after 20 rolls of the dice."
-                    + "\nChefs earn money by hiring employees from third-party companies to temporarly work for them"
+                    + "\nWhere Chef players compete against each other to get the higher networth after 20 rolls of the dice."
+                    + "\nChefs increase their net worth by hiring employees from third-party companies to temporarly work for them"
                     + "\n--> you can do this by landing on an employee square and by paying their PayRate, you can hire them!"
-                    + "\n--> The \"earnings\" in their statistics is how much that employee will make you per board lap"
-                    + "\nThe only way you can make your money is employees so be sure to have employees at all times!");
+                    + "\n--> the \"earnings\" in their statistics is how much that employee will make you per board lap"
+                    + "\nThe only way you can make your money is employees so be sure to have employees at all times!"
+                    + "\nBut BEWARE! For more employees mean when you have to pay all of them, it'll suck at ur wallet ><");
         }
 
         // if the file exists, ask user if they want to load up the data
-
         FileReader read = new FileReader(foodFrenzyFile);
         BufferedReader reader = new BufferedReader(read);
 
@@ -45,6 +49,7 @@ public class Main {
 
             // if the user chooses to load game data
             if (line.startsWith("y") || line.startsWith("Y")) {
+                
                 try {
 
                     line = reader.readLine();
@@ -67,15 +72,18 @@ public class Main {
                 } catch (IOException e) {
                     System.out.println("Problem with the input and output");
                     System.err.println("FileNotFoundException: " + e.getMessage());
+                    
                 } catch (Exception e) {
                     System.err.println("Error: " + e.getMessage());
                 }
             } else {
+                FileWriter write = new FileWriter(foodFrenzyFile);
+                BufferedWriter writer = new BufferedWriter(write);
+                write.close();
+                writer.close();
                 red = new Chef(inputString("\nEnter Player 1 Red Chef's Name : "), "\u001B[31m");
                 blue = new Chef(inputString("\nEnter Player 2 Blue Chef's Name : "), "\u001B[34m");
-
             }
-            foodFrenzyFile.delete();
 
         } else { // in the case they dont want to load the data
             red = new Chef(inputString("\nEnter Player 1 Red Chef's Name : "), "\u001B[31m");
@@ -83,6 +91,7 @@ public class Main {
             System.out.println();
         }
 
+        System.out.println("[ Every player starts out with 2000 dollars ]");
         // getting the board set up with players on it
         FoodFrenzy board = new FoodFrenzy(red, blue);
 
@@ -184,7 +193,6 @@ public class Main {
                                 System.out.println("Your new balance is " + current.getBalance());
                             }
                         } else {
-                            option = 5;
                             chanceCard(current, option, currentEmployeeList);
                         }
                     } else {
@@ -253,7 +261,7 @@ public class Main {
             Chef winner;
             Chef loser;
 
-            if (red.getBalance() > blue.getBalance()) {
+            if (red.getNetWorth() > blue.getNetWorth()) {
                 winner = red;
                 loser = blue;
             } else {
@@ -581,28 +589,28 @@ public class Main {
     //calculates and pays Employees
     public static void payEmployees(Chef player, EmployeeList list) {
         player.setBalance((player.getBalance()) - list.calculatePayRoll());
-        System.out
-                .println("$" + list.calculatePayRoll() + " was taken out of Chef " + player.getName() + "'s balance!");
+        System.out.println("$" + list.calculatePayRoll() + " was taken out of \nChef " + player.getName() + "'s balance!");
     }
 
     //pays the Player using the method from the object
     public static void payPlayer(Chef player, EmployeeList list) {
         player.setBalance(player.getBalance() + list.calculateEarnings());
-        System.out.println(list.calculateEarnings() + " was added to Chef " + player.getName() + "'s balance!");
+        System.out.println("$"+list.calculateEarnings() + " was added to Chef " + player.getName() + "'s balance!");
+        player.addToNetWorth(list.calculateEarnings());
     }
 
     // chance card that occurs only if the player has less than 1 employees
     public static void chanceCard(Chef player, int option, EmployeeList list) {
         Random rand = new Random();
-        option = 1;
+        option = rand.nextInt(11)+1;
 
-        System.out.println("───────────────────────────────");
+        System.out.println("───────────────────────────────────");
 
         if (option == 1) {
             System.out.println("You commited tax fraud! Go To JAIL!\nYou must roll an even number to get out!");
             player.setPosition(25);
             player.setJail(true);
-        } else if (option == 2 || option == 3) {
+        } else if (option == 2) {
             System.out.println("You have to fire your oldest \nemployee :(");
             try {
                 list.fire();
@@ -616,28 +624,28 @@ public class Main {
             // the employees
             payEmployees(player, list);
 
-        } else if (option==8 || option == 9) {
+        } else if (option==8 || option == 9 || option == 3) {
 
             payPlayer(player, list);
-            System.out.println("EXTRA PAY DAY! YOU TOOK YOUR EMPLOYEES EARNINGS TODAY!!");
+            System.out.println("EXTRA PAY DAY! YOU TOOK YOUR EMPLOYEES EARNINGS EARLY TODAY!!");
 
         } else {
 
             // check if the player is in debt
             double tempBalance;
             if (player.checkDebt() == true) {
-                tempBalance = 0 + player.getBalance();
-                System.out.print("EVEN IF YOU ARE IN DEBT, ");
+                tempBalance = 0 - player.getBalance();
+                System.out.print("EVEN IF YOU ARE IN DEBT,\n");
             } else {
                 tempBalance = player.getBalance();
             }
 
             int donation = rand.nextInt((int)tempBalance / 2) + 1;
             player.setBalance(player.getBalance() - donation);
-            System.out.println("YOU DECIDED TO DONATE TO SICK KIDS WOWWW! THANK YOU FOR YOUR DONATION OF $" + donation
-                    + "!Thank you for your kindness <3");
+            System.out.println("YOU DECIDED TO DONATE TO SICK KIDS \nWOWWW! \nTHANK YOU FOR YOUR DONATION OF $" + donation
+                    + "\n!Thank you for your kindness <3");
         }
-        System.out.println("───────────────────────────────");
+        System.out.println("───────────────────────────────────");
 
     }
 

@@ -1,6 +1,9 @@
-import java.io.Serializable;
-
-public class EmployeeCard extends BoardSquare  implements Serializable {
+/* Angela Nguyen
+ * ICS4U Final Project
+ * Semester 1 Jan 2023
+ * This code is the other child class of BoardSquare to hold Employee information
+ */
+public class EmployeeCard extends BoardSquare {
     String name;
     String companyName;
     String job;

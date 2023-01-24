@@ -1,4 +1,4 @@
-/* Name : Angela Nguyen
+/* Angela Nguyen
  * ICS4U
  * 2023/01/06
  * This program is the linked queue for the Employee node object

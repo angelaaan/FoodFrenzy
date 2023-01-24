@@ -1,10 +1,18 @@
+/* Angela Nguyen
+ * ICS4U Final Project
+ * Semester 1 Jan 2023
+ * This is the class that controls the board appearance
+ */
 import java.util.*;
 import java.io.*;
 public class FoodFrenzy {
+    //instance variables
     private int position1r;
     private int position1c;
     private int position2r;
     private int position2c;
+
+    //2d array for the board
     private String[][] board = {
         {"-GO!-"," -E- "," -E- "," -E- "," -?- "," -E- "," -?- "}, //ROW 0
         {" -E- ","     ","     ","     ","     ","     "," -E- "}, //ROW 1
