@@ -1,3 +1,8 @@
+/* Angela Nguyen
+ * ICS4U Final Project
+ * Semester 1 Jan 2023
+ * This code is the player class for the FoodFrenzy program
+ */
 public class Chef {
     String name;
     int position;
@@ -15,6 +20,7 @@ public class Chef {
         balance = 2000;
         position = 1;
         lapCount = 0;
+        netWorth = 0.0;
         colourCode = color;
         debt = false;
         jail = false;
@@ -66,6 +72,10 @@ public class Chef {
         return jail;
     }
 
+    public double getNetWorth(){
+        return netWorth;
+    }
+
     //mutator methods
     public void setJail(boolean status){
         jail = status;
@@ -77,21 +87,20 @@ public class Chef {
 
     public void setBalance(int num){
         balance = (double)num;
-        if (balance < 0){
-            debt = true;
-        }
+        checkDebt();
     }
 
     public void setBalance (double num){
         balance = num;
-
-        if (balance < 0){
-            debt = true;
-        }
+        checkDebt();
     }
 
     public void setList(EmployeeList newList){
         list = newList;
+    }
+
+    public void addToNetWorth(double num){
+        netWorth += num;
     }
 
     //increasing the amount of laps for that player
@@ -101,7 +110,13 @@ public class Chef {
 
     //checking for debt
     public boolean checkDebt(){
-        return debt;
+        if (balance < 0){
+            debt = true;
+            return debt;
+        } else {
+            debt = false;
+            return false;
+        }
     }
 
     //override the original string method

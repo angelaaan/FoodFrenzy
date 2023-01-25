@@ -1,3 +1,9 @@
+/* Angela Nguyen
+ * ICS4U Final Project
+ * Semester 1 Jan 2023
+ * This code is the class that inherits BoardSquare
+ *  for the jail and go space on the board
+ */
 public class JailSquare extends BoardSquare {
 
     public JailSquare( int boardPosition){
